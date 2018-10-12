@@ -1,4 +1,8 @@
-package oose.dea.lotusterhaar;
+package oose.dea.lotusterhaar.services;
+
+import oose.dea.lotusterhaar.domain.Library;
+import oose.dea.lotusterhaar.domain.Playlist;
+import oose.dea.lotusterhaar.domain.TrackOverview;
 
 public class PlaylistService {
 

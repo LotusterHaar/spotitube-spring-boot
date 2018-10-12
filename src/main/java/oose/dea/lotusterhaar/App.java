@@ -1,10 +1,24 @@
 package oose.dea.lotusterhaar;
 
-/**
- * Hello world!
- */
+import oose.dea.lotusterhaar.domain.Account;
+import oose.dea.lotusterhaar.persistence.AccountDAO;
+
+
 public class App {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+
+        AccountDAO accountDAO = new AccountDAO();
+
+        Account newAccount = new Account("piet", "pietpass");
+        accountDAO.persistAccount(newAccount);
+        Account newAccount2 = new Account("uwe", "uwepass");
+        accountDAO.persistAccount(newAccount2);
+        Account newAccount3 = new Account("jan", "jaspass");
+        accountDAO.persistAccount(newAccount3);
+
+        for (Account account : accountDAO.getAllAccounts()) {
+            System.out.println(account);
+        }
+
     }
 }

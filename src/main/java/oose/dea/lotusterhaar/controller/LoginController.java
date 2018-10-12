@@ -1,4 +1,7 @@
-package oose.dea.lotusterhaar;
+package oose.dea.lotusterhaar.controller;
+
+import oose.dea.lotusterhaar.domain.Account;
+import oose.dea.lotusterhaar.services.LoginService;
 
 import javax.security.auth.login.LoginException;
 import javax.ws.rs.Consumes;

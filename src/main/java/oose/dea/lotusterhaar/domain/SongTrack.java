@@ -1,4 +1,4 @@
-package oose.dea.lotusterhaar;
+package oose.dea.lotusterhaar.domain;
 
 public class SongTrack extends Track {
     private String album;

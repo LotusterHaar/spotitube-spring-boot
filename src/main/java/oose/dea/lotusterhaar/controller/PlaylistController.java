@@ -1,4 +1,7 @@
-package oose.dea.lotusterhaar;
+package oose.dea.lotusterhaar.controller;
+
+import oose.dea.lotusterhaar.domain.*;
+import oose.dea.lotusterhaar.services.PlaylistService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

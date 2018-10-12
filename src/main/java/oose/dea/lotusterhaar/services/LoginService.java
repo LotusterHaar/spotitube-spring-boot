@@ -1,4 +1,8 @@
-package oose.dea.lotusterhaar;
+package oose.dea.lotusterhaar.services;
+
+import oose.dea.lotusterhaar.domain.Account;
+import oose.dea.lotusterhaar.domain.LocalStorage;
+import oose.dea.lotusterhaar.domain.UserToken;
 
 import javax.security.auth.login.LoginException;
 

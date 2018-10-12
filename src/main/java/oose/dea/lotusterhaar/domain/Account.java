@@ -1,4 +1,4 @@
-package oose.dea.lotusterhaar;
+package oose.dea.lotusterhaar.domain;
 
 public class Account {
     private String user;

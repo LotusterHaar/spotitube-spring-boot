@@ -1,17 +1,23 @@
 package oose.dea.lotusterhaar.controller;
 
 import oose.dea.lotusterhaar.domain.*;
-import oose.dea.lotusterhaar.services.PlaylistService;
+import oose.dea.lotusterhaar.services.PlaylistRestService;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
+@Singleton
 @Path("/playlists")
 public class PlaylistController {
-    private PlaylistService playlistService = new PlaylistService();
+    @Inject
+    @Named("playlistRestService")
+    private PlaylistRestService playlistService = new PlaylistRestService();
     private List<Playlist> playlists = new ArrayList();
     private List<Track> tracklist1 = new ArrayList<>();
     private List<Track> tracklist2 = new ArrayList<>();

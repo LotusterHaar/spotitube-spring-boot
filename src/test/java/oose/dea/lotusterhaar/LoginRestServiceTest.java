@@ -1,5 +1,8 @@
 package oose.dea.lotusterhaar;
 
+import oose.dea.lotusterhaar.domain.Account;
+import oose.dea.lotusterhaar.domain.UserToken;
+import oose.dea.lotusterhaar.services.LoginRestService;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -9,14 +12,14 @@ import javax.security.auth.login.LoginException;
 
 import static org.junit.Assert.assertEquals;
 
-public class LoginServiceTest {
+public class LoginRestServiceTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-    private LoginService sut; //system under test
+    private LoginRestService sut; //system under test
 
     @Before
     public void SetUp() throws Exception {
-        sut = new LoginService();
+        sut = new LoginRestService();
     }
 
     @Test
@@ -33,6 +36,5 @@ public class LoginServiceTest {
         thrown.expectMessage("Invalid login credentials");
         Account account = new Account("uwe", "uwepass");
     }
-
 
 }

@@ -1,5 +1,9 @@
 package oose.dea.lotusterhaar;
 
+import oose.dea.lotusterhaar.controller.LoginController;
+import oose.dea.lotusterhaar.domain.Account;
+import oose.dea.lotusterhaar.domain.UserToken;
+import oose.dea.lotusterhaar.services.LoginRestService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 public class LoginControllerTest {
 
     @Mock
-    private LoginService loginService;
+    private LoginRestService loginRestService;
 
     @InjectMocks
     private LoginController sut;
@@ -24,7 +28,7 @@ public class LoginControllerTest {
     @Test
     public void testStatusOKOnSuccesfullLogin() throws LoginException {
         UserToken userToken = new UserToken("", "");
-        Mockito.when(loginService.login(Mockito.any())).thenReturn(userToken);
+        Mockito.when(loginRestService.login(Mockito.any())).thenReturn(userToken);
         Account account = new Account("", "");
         Response loginResponse = sut.getPassword(account);
 

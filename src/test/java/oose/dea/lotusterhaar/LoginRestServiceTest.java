@@ -2,7 +2,7 @@ package oose.dea.lotusterhaar;
 
 import oose.dea.lotusterhaar.domain.Account;
 import oose.dea.lotusterhaar.domain.UserToken;
-import oose.dea.lotusterhaar.services.LoginRestService;
+import oose.dea.lotusterhaar.services.local.LoginLocalRestService;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,16 +15,16 @@ import static org.junit.Assert.assertEquals;
 public class LoginRestServiceTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-    private LoginRestService sut; //system under test
+    private LoginLocalRestService sut; //system under test
 
     @Before
     public void SetUp() throws Exception {
-        sut = new LoginRestService();
+        sut = new LoginLocalRestService();
     }
 
     @Test
     public void testSuccesfulLogin() throws LoginException {
-        Account account = new Account("uwe", "uwepass");
+        Account account = new Account("uwe", "uwepass", "Uwe van Heesch");
         UserToken login = sut.login(account);
         assertEquals("Uwe van Heesch", login.getUser());
         assertEquals("1234-1234-1234", login.getToken());
@@ -34,7 +34,7 @@ public class LoginRestServiceTest {
     public void testFailedLogin() throws LoginException {
         thrown.expect(LoginException.class);
         thrown.expectMessage("Invalid login credentials");
-        Account account = new Account("uwe", "uwepass");
+        Account account = new Account("uwe", "uwepass", "Uwe van Heesch");
     }
 
 }

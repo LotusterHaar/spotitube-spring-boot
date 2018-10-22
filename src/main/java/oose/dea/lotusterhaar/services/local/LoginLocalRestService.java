@@ -1,4 +1,4 @@
-package oose.dea.lotusterhaar.services;
+package oose.dea.lotusterhaar.services.local;
 
 import oose.dea.lotusterhaar.domain.Account;
 import oose.dea.lotusterhaar.domain.LocalStorage;
@@ -7,8 +7,8 @@ import oose.dea.lotusterhaar.domain.UserToken;
 import javax.inject.Named;
 import javax.security.auth.login.LoginException;
 
-@Named("loginRestService")
-public class LoginRestService {
+@Named("loginLocalRestService")
+public class LoginLocalRestService {
 
     private LocalStorage localStorage;
 

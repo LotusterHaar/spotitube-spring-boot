@@ -3,14 +3,15 @@ package oose.dea.lotusterhaar.domain;
 public class Account {
     private String user;
     private String password;
-
+    private String fullName;
 
     public Account() {
     }
 
-    public Account(String user, String password) {
+    public Account(String user, String password, String fullName) {
         this.user = user;
         this.password = password;
+        this.fullName = fullName;
     }
 
     public String getUser() {
@@ -27,5 +28,13 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

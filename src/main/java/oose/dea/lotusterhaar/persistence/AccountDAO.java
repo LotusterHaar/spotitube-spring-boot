@@ -27,7 +27,8 @@ public class AccountDAO {
             while (resultSet.next()) {
                 String user = resultSet.getString("user");
                 String password = resultSet.getString("password");
-                accounts.add(new Account(user, password));
+                String fullName = resultSet.getString("full_name");
+                accounts.add(new Account(user, password, fullName));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -39,14 +40,36 @@ public class AccountDAO {
         try (
                 Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(
-                        "INSERT INTO ACCOUNT (user,password) VALUES (?,?)");
+                        "INSERT INTO ACCOUNT (user,password, full_name) VALUES (?,?,?)");
         ) {
             statement.setString(1, account.getUser());
             statement.setString(2, account.getPassword());
+            statement.setString(3, account.getFullName());
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Account findAccountByUsername(String username) {
+        Account account = null;
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM account WHERE user = ?");
+        ) {
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String user = resultSet.getString("user");
+                String password = resultSet.getString("password");
+                String fullName = resultSet.getString("full_name");
+                account = new Account(user, password, fullName);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return account;
     }
 
 

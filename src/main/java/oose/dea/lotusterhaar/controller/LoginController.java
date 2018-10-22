@@ -1,7 +1,7 @@
 package oose.dea.lotusterhaar.controller;
 
 import oose.dea.lotusterhaar.domain.Account;
-import oose.dea.lotusterhaar.services.LoginRestService;
+import oose.dea.lotusterhaar.services.local.LoginLocalRestService;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -19,8 +19,8 @@ import javax.ws.rs.core.Response;
 @Path("/login")
 public class LoginController extends HttpServlet {
     @Inject
-    @Named("loginRestService")
-    private LoginRestService loginRestService = new LoginRestService();
+    @Named("loginLocalRestService")
+    private LoginLocalRestService loginRestService = new LoginLocalRestService();
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

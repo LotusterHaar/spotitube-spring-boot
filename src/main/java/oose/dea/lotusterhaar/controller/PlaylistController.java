@@ -1,7 +1,7 @@
 package oose.dea.lotusterhaar.controller;
 
 import oose.dea.lotusterhaar.domain.Library;
-import oose.dea.lotusterhaar.services.PlaylistRestService;
+import oose.dea.lotusterhaar.services.local.PlaylistLocalRestService;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -15,8 +15,8 @@ import javax.ws.rs.core.Response;
 @Path("/playlists")
 public class PlaylistController {
     @Inject
-    @Named("playlistRestService")
-    private PlaylistRestService playlistService = new PlaylistRestService();
+    @Named("playlistLocalRestService")
+    private PlaylistLocalRestService playlistService = new PlaylistLocalRestService();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

@@ -11,12 +11,8 @@ public class App {
 
         AccountDAO accountDAO = new AccountDAO();
 
-        Account newAccount = new Account("piet", "pietpass");
+        Account newAccount = new Account("anne", "annepass", "Anne de Jong");
         accountDAO.persistAccount(newAccount);
-        Account newAccount2 = new Account("uwe", "uwepass");
-        accountDAO.persistAccount(newAccount2);
-        Account newAccount3 = new Account("jan", "janpass");
-        accountDAO.persistAccount(newAccount3);
 
         for (Account account : accountDAO.getAllAccounts()) {
             System.out.println(account);

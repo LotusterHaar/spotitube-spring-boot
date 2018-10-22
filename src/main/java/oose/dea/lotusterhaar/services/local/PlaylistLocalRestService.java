@@ -1,4 +1,4 @@
-package oose.dea.lotusterhaar.services;
+package oose.dea.lotusterhaar.services.local;
 
 import oose.dea.lotusterhaar.domain.*;
 
@@ -6,8 +6,8 @@ import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
 
-@Named("playlistRestService")
-public class PlaylistRestService {
+@Named("playlistLocalRestService")
+public class PlaylistLocalRestService {
 
     private List<Playlist> playlists = new ArrayList();
     private List<Track> tracklist1 = new ArrayList<>();
@@ -15,7 +15,7 @@ public class PlaylistRestService {
     private Library library;
     private Track track1, track2, track3, track4, track5;
 
-    public PlaylistRestService() {
+    public PlaylistLocalRestService() {
         track1 = new SongTrack(1, "Song for Someone", "The Frames", 350, 0, false, "The cost");
         track2 = new VideoTrack(2, "The cost", "The Frames", 423, 37, true, "10-01-2005", "Title Song from the Album The Cost");
         track3 = new VideoTrack(3, "Falling Slowly", "The Frames", 436, 10, true, "10-01-2005", "Title Song from the Album The Cost");

@@ -9,22 +9,13 @@ import java.util.Properties;
 public class ConnectionFactory {
     private Properties properties;
 
-/*    public ConnectionFactory(){
+    public ConnectionFactory() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-    }*/
-
-/*    public Connection getConnection(){
-
-        try {
-            return DriverManager.getConnection("jdbc.mysql://localhost:3306/spotitube", "lotus", "lotuspass");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }*/
+    }
 
     public Connection getConnection() {
         if (properties == null) {

@@ -14,9 +14,10 @@ import javax.ws.rs.core.Response;
 @Singleton
 @Path("/playlists")
 public class PlaylistController {
+
     @Inject
     @Named("playlistLocalRestService")
-    private PlaylistLocalRestService playlistService = new PlaylistLocalRestService();
+    private PlaylistLocalRestService playlistService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

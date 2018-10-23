@@ -65,7 +65,6 @@ public class AccountDAO {
                 String fullName = resultSet.getString("full_name");
                 account = new Account(user, password, fullName);
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

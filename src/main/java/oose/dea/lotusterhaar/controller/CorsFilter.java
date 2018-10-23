@@ -1,4 +1,4 @@
-package oose.dea.lotusterhaar.domain;
+package oose.dea.lotusterhaar.controller;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;

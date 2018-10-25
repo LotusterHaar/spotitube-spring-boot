@@ -10,8 +10,8 @@ import java.util.List;
 public class PlaylistLocalRestService {
 
     private List<Playlist> playlists = new ArrayList();
-    private List<Track> tracklist1 = new ArrayList<>();
-    private List<Track> tracklist2 = new ArrayList<>();
+    private ArrayList<Track> tracklist1 = new ArrayList<>();
+    private ArrayList<Track> tracklist2 = new ArrayList<>();
     private Library library;
     private Track track1, track2, track3, track4, track5;
 
@@ -40,7 +40,7 @@ public class PlaylistLocalRestService {
         throw new Exception("No tracks found!");
     }
 
-    public Library createLibrary() {
+    public Library getAllPlaylists() {
         return library;
     }
 }

@@ -1,9 +1,17 @@
-/*
--- Query: SELECT * FROM spotitube.videotrack
-LIMIT 0, 1000
-
--- Date: 2018-10-22 18:53
-*/
-INSERT INTO `videotrack` (`id`,`publicationDate`,`description`) VALUES (5,'2018-05-30','https://youtu.be/aJOTlE1K90k');
-INSERT INTO `videotrack` (`id`,`publicationDate`,`description`) VALUES (6,'2011-08-12','https://youtu.be/T3E9Wjbq44E');
-INSERT INTO `videotrack` (`id`,`publicationDate`,`description`) VALUES (7,'2018-06-09','https://youtu.be/l25AL0BdD6w');
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `spotitube`.`videotracks_view` AS
+    SELECT 
+        `spotitube`.`track`.`id` AS `id`,
+        `spotitube`.`track`.`title` AS `title`,
+        `spotitube`.`track`.`performer` AS `performer`,
+        `spotitube`.`track`.`duration` AS `duration`,
+        `spotitube`.`track`.`playcount` AS `playcount`,
+        `spotitube`.`track`.`offlineAvailable` AS `offlineAvailable`,
+        `spotitube`.`videotrack`.`publicationDate` AS `publicationDate`,
+        `spotitube`.`videotrack`.`description` AS `description`
+    FROM
+        (`spotitube`.`videotrack`
+        LEFT JOIN `spotitube`.`track` ON ((`spotitube`.`videotrack`.`id` = `spotitube`.`track`.`id`)))

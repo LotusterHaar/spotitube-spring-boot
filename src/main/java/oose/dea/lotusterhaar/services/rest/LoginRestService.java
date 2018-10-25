@@ -19,10 +19,7 @@ public class LoginRestService {
 
     public UserToken login(Account user) throws LoginException {
         Account account = accountDAO.findAccountByUsername(user.getUser());
-        System.out.println("user: ");
-        System.out.println(account.getUser());
-        System.out.println("pass: ");
-        System.out.println(account.getPassword());
+
         if (account != null && user.getPassword().equals(account.getPassword())) {
             UserToken token = new UserToken("1234-1234-1234-1234", "Lotus ter Haar");
             localStorage = new LocalStorage(token.getToken());

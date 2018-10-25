@@ -6,6 +6,8 @@ public class Library {
     private List<Playlist> playlists;
     private int length;
 
+    public Library() {
+    }
 
     public Library(List<Playlist> playlists) {
         this.playlists = playlists;

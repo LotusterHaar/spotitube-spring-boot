@@ -22,7 +22,7 @@ public class PlaylistController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Library getPlaylists() {
-        Library library = playlistService.createLibrary();
+        Library library = playlistService.getAllPlaylists();
         return library;
     }
 

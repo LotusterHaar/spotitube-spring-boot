@@ -1,22 +1,26 @@
 package oose.dea.lotusterhaar.domain;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class TrackOverview {
-    List<Track> tracks;
+    ArrayList<Track> tracks;
 
     public TrackOverview() {
     }
 
-    public TrackOverview(List<Track> tracks) {
+    public TrackOverview(ArrayList<Track> tracks) {
         this.tracks = tracks;
     }
 
-    public List<Track> getTracks() {
+    public ArrayList<Track> getTracks() {
         return tracks;
     }
 
-    public void setTracks(List<Track> tracks) {
+    public void setTracks(ArrayList<Track> tracks) {
         this.tracks = tracks;
+    }
+
+    public void addTrack(Track track) {
+        tracks.add(track);
     }
 }

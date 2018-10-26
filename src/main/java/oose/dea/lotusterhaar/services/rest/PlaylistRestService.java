@@ -5,15 +5,17 @@ import oose.dea.lotusterhaar.domain.TrackOverview;
 import oose.dea.lotusterhaar.persistence.PlaylistDAO;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.naming.AuthenticationException;
 
+@Named("playlistRestService")
 public class PlaylistRestService {
 
     @Inject
     private PlaylistDAO playlistDAO;
 
-    public Library getAllPlaylists() {
-        return playlistDAO.getAllPlaylists();
+    public Library getAllPlaylists(String token) {
+        return playlistDAO.getAllPlaylists(token);
     }
 
     public TrackOverview getAllTracksFromPlaylist(int id, String token) throws Exception {

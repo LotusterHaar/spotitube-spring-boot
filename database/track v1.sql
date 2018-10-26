@@ -2,7 +2,7 @@
 -- Query: SELECT * FROM spotitube.track
 LIMIT 0, 1000
 
--- Date: 2018-10-22 18:55
+-- Date: 2018-10-26 19:42
 */
 INSERT INTO `track` (`id`,`title`,`performer`,`duration`,`playcount`,`offlineAvailable`) VALUES (1,'Castle on the Hill','Ed Sheeran',261,124,1);
 INSERT INTO `track` (`id`,`title`,`performer`,`duration`,`playcount`,`offlineAvailable`) VALUES (2,'Perfect','Ed Sheeran',263,153,1);
@@ -12,4 +12,4 @@ INSERT INTO `track` (`id`,`title`,`performer`,`duration`,`playcount`,`offlineAva
 INSERT INTO `track` (`id`,`title`,`performer`,`duration`,`playcount`,`offlineAvailable`) VALUES (6,'Stereo Hearts ft. Adam Levine','Gym Class Heroes',216,84,0);
 INSERT INTO `track` (`id`,`title`,`performer`,`duration`,`playcount`,`offlineAvailable`) VALUES (7,'Babe ft. Taylor Swift','Sugarland',279,26,1);
 INSERT INTO `track` (`id`,`title`,`performer`,`duration`,`playcount`,`offlineAvailable`) VALUES (8,'Meant To Be ft. Florida Georgia Line','Bebe Rexsha',164,5,0);
-INSERT INTO `track` (`id`,`title`,`performer`,`duration`,`playcount`,`offlineAvailable`) VALUES (9,'Simple','Florida Georgia Line',3,185,0);
+INSERT INTO `track` (`id`,`title`,`performer`,`duration`,`playcount`,`offlineAvailable`) VALUES (9,'Simple','Florida Georgia Line',185,3,0);

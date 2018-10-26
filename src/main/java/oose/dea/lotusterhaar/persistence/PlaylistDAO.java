@@ -14,20 +14,29 @@ public class PlaylistDAO {
     @Inject
     ConnectionFactory connectionFactory;
 
-    public Library getAllPlaylists() {
+    public Library getAllPlaylists(String token) {
         Library library = new Library();
         try (Connection connection = connectionFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM playlist");
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT \n" +
+                             "    playlists_view.*, token.token\n" +
+                             "FROM\n" +
+                             "    playlists_view\n" +
+                             "        LEFT JOIN\n" +
+                             "    token ON playlists_view.username = token.account_user\n" +
+                             "WHERE\n" +
+                             "    token.token = ? \n");
         ) {
+            statement.setString(1, token);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int playlist_id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 Boolean owner = resultSet.getBoolean("owner");
-                String library_id = resultSet.getString("library_id");
                 library.getPlaylists().add(new Playlist(playlist_id, name, owner, new ArrayList<Track>()));
             }
         } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return library;
     }
@@ -49,17 +58,18 @@ public class PlaylistDAO {
              PreparedStatement statement = connection.prepareStatement("SELECT \n" +
                      "    *\n" +
                      "FROM\n" +
-                     "    spotitube.videotracks_view vtv\n" +
+                     "    spotitube.songtracks_view stv\n" +
                      "        LEFT JOIN\n" +
-                     "    spotitube.playlist_has_tracks pht ON pht.track_id = vtv.id\n" +
+                     "    spotitube.playlist_has_tracks pht ON pht.track_id = stv.id\n" +
                      "        AND pht.playlist_id = ?\n" +
                      "WHERE\n" +
-                     "    vtv.id IN (SELECT \n" +
+                     "    stv.id IN (SELECT \n" +
                      "            track_id\n" +
                      "        FROM\n" +
                      "            spotitube.playlist_has_tracks\n" +
                      "        WHERE\n" +
-                     "            playlist_id = ?)\n");
+                     "            playlist_id = ?)");
+
         ) {
             statement.setInt(1, playlistId);
             statement.setInt(2, playlistId);
@@ -87,17 +97,17 @@ public class PlaylistDAO {
              PreparedStatement statement = connection.prepareStatement("SELECT \n" +
                      "    *\n" +
                      "FROM\n" +
-                     "    spotitube.songtracks_view stv\n" +
+                     "    spotitube.videotracks_view vtv\n" +
                      "        LEFT JOIN\n" +
-                     "    spotitube.playlist_has_tracks pht ON pht.track_id = stv.id\n" +
+                     "    spotitube.playlist_has_tracks pht ON pht.track_id = vtv.id\n" +
                      "        AND pht.playlist_id = ?\n" +
                      "WHERE\n" +
-                     "    stv.id IN (SELECT \n" +
+                     "    vtv.id IN (SELECT \n" +
                      "            track_id\n" +
                      "        FROM\n" +
                      "            spotitube.playlist_has_tracks\n" +
                      "        WHERE\n" +
-                     "            playlist_id = ?)");
+                     "            playlist_id = ?)\n");
         ) {
             statement.setInt(1, playlistId);
             statement.setInt(2, playlistId);

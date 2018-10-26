@@ -1,24 +1,24 @@
 package oose.dea.lotusterhaar.domain;
 
-import java.util.List;
+
+import java.util.ArrayList;
 
 public class Library {
-    private List<Playlist> playlists;
+    private ArrayList<Playlist> playlists = new ArrayList<Playlist>();
     private int length;
 
     public Library() {
     }
 
-    public Library(List<Playlist> playlists) {
+    public Library(ArrayList<Playlist> playlists) {
         this.playlists = playlists;
-        this.length = getTotalLengthPlaylists();
     }
 
-    public List<Playlist> getPlaylists() {
+    public ArrayList<Playlist> getPlaylists() {
         return playlists;
     }
 
-    public void setPlaylists(List<Playlist> playlists) {
+    public void setPlaylists(ArrayList<Playlist> playlists) {
         this.playlists = playlists;
     }
 

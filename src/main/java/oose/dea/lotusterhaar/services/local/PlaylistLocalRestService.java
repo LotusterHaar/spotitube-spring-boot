@@ -2,14 +2,11 @@ package oose.dea.lotusterhaar.services.local;
 
 import oose.dea.lotusterhaar.domain.*;
 
-import javax.inject.Named;
 import java.util.ArrayList;
-import java.util.List;
 
-@Named("playlistLocalRestService")
 public class PlaylistLocalRestService {
 
-    private List<Playlist> playlists = new ArrayList();
+    private ArrayList<Playlist> playlists = new ArrayList();
     private ArrayList<Track> tracklist1 = new ArrayList<>();
     private ArrayList<Track> tracklist2 = new ArrayList<>();
     private Library library;

@@ -18,7 +18,6 @@ public class App {
         Account newAccount = new Account("anne", "annepass", "Anne de Jong");
         accountDAO.persistAccount(newAccount);
 */
-
         for (Account account : accountDAO.getAllAccounts()) {
             System.out.println(account);
         }

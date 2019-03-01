@@ -8,6 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 public class PlaylistDAO {
 
@@ -39,6 +42,22 @@ public class PlaylistDAO {
             throw new RuntimeException(e);
         }
         return library;
+    }
+
+    public int getTotalLengthFromAllPlaylists() {
+        int totalLength = 0;
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement statement = connection.prepareStatement("");
+        ) {
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                totalLength = resultSet.getInt("");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return totalLength;
     }
 
     public TrackOverview getAllTracksFromPlaylist(int playlistId) {
@@ -87,7 +106,6 @@ public class PlaylistDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return trackOverview;
     }
 
@@ -127,6 +145,37 @@ public class PlaylistDAO {
             throw new RuntimeException(e);
         }
         return trackOverview;
+    }
+
+    public void updateNameOfPlaylist(int id, String name) {
+
+        try (Connection connection = connectionFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement("UPDATE spotitube.playlist \n" +
+                     "SET \n" +
+                     "    playlist.name = ? \n" +
+                     "WHERE\n" +
+                     "    playlist.id = ?");
+        ) {
+            statement.setString(1, name);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public void deletePlaylistById(int id) {
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement statement = connection.prepareStatement("DELETE FROM spotitube.playlist WHERE playlist.id = ?")
+        ) {
+            statement.setInt(1, id);
+            statement.execute();
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
     }
 }
 

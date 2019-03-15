@@ -26,10 +26,10 @@ public class LoginControllerTest {
     private LoginController sut;
 
     @Test
-    public void testStatusOKOnSuccesfullLogin() throws LoginException {
+    public void testStatusOKOnSuccessfulLogin() throws LoginException {
         UserToken userToken = new UserToken("", "");
         Mockito.when(loginLocalRestService.login(Mockito.any())).thenReturn(userToken);
-        Account account = new Account("", "", "");
+        Account account = new Account("", "");
         Response loginResponse = sut.getPassword(account);
 
         assertEquals(Response.Status.OK.getStatusCode(), loginResponse.getStatus());

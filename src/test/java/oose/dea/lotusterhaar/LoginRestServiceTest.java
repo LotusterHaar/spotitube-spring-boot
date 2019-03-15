@@ -23,8 +23,8 @@ public class LoginRestServiceTest {
     }
 
     @Test
-    public void testSuccesfulLogin() throws LoginException {
-        Account account = new Account("uwe", "uwepass", "Uwe van Heesch");
+    public void testSuccessfulLogin() throws LoginException {
+        Account account = new Account("uwe", "uwepass");
         UserToken login = sut.login(account);
         assertEquals("Uwe van Heesch", login.getUser());
         assertEquals("1234-1234-1234", login.getToken());
@@ -34,7 +34,7 @@ public class LoginRestServiceTest {
     public void testFailedLogin() throws LoginException {
         thrown.expect(LoginException.class);
         thrown.expectMessage("Invalid login credentials");
-        Account account = new Account("uwe", "uwepass", "Uwe van Heesch");
+        Account account = new Account("uwe", "uwepass");
     }
 
 }

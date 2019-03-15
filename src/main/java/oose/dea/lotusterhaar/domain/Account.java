@@ -8,10 +8,10 @@ public class Account {
     public Account() {
     }
 
-    public Account(String user, String password, String fullName) {
+    public Account(String user, String password) {
         this.user = user;
         this.password = password;
-        this.fullName = fullName;
+        /*      this.fullName = fullName;*/
     }
 
     public String getUser() {
@@ -30,11 +30,11 @@ public class Account {
         this.password = password;
     }
 
-    public String getFullName() {
+/*    public String getFullName() {
         return fullName;
     }
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
+    }*/
 }

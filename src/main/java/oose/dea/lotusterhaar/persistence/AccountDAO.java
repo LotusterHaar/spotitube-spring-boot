@@ -25,8 +25,7 @@ public class AccountDAO {
             while (resultSet.next()) {
                 String user = resultSet.getString("user");
                 String password = resultSet.getString("password");
-                String fullName = resultSet.getString("full_name");
-                accounts.add(new Account(user, password, fullName));
+                accounts.add(new Account(user, password));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -38,11 +37,10 @@ public class AccountDAO {
         try (
                 Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(
-                        "INSERT INTO account(user,password, full_name) VALUES (?,?,?)");
+                        "INSERT INTO account(user,password) VALUES (?,?)");
         ) {
             statement.setString(1, account.getUser());
             statement.setString(2, account.getPassword());
-            statement.setString(3, account.getFullName());
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -60,8 +58,7 @@ public class AccountDAO {
             while (resultSet.next()) {
                 String user = resultSet.getString("user");
                 String password = resultSet.getString("password");
-                String fullName = resultSet.getString("full_name");
-                account = new Account(user, password, fullName);
+                account = new Account(user, password);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -9,6 +9,9 @@ public class Playlist {
     private ArrayList<Track> tracks;
     private int length;
 
+    public Playlist() {
+    }
+
     public Playlist(int id, String name, boolean owner, ArrayList<Track> tracks) {
         this.id = id;
         this.name = name;

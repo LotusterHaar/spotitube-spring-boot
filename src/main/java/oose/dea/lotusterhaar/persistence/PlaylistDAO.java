@@ -8,14 +8,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 public class PlaylistDAO {
 
     @Inject
     ConnectionFactory connectionFactory;
+
+    @Inject
+    TokenDAO tokenDAO;
 
     public Library getAllPlaylists(String token) {
         Library library = new Library();
@@ -147,6 +147,44 @@ public class PlaylistDAO {
         return trackOverview;
     }
 
+    public void deletePlaylistById(int id) {
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement statement = connection.prepareStatement("DELETE FROM spotitube.playlist WHERE playlist.id = ?")
+        ) {
+            statement.setInt(1, id);
+            statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void addPlaylist(String token, Playlist playlist) {
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement getLibraryIdsStatement = connection.prepareStatement("SELECT library.id FROM spotitube.library WHERE library.username = ?");
+                PreparedStatement statement1 = connection.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");
+                PreparedStatement createPlaylistStatement = connection.prepareStatement("INSERT INTO playlist (name, owner, library_id) VALUES (?,?,?)");
+                PreparedStatement statement2 = connection.prepareStatement("SET FOREIGN_KEY_CHECKS = 1");
+        ) {
+            String username = tokenDAO.findUsernameByToken(token);
+            getLibraryIdsStatement.setString(1, username);
+            ResultSet resultSet = getLibraryIdsStatement.executeQuery();
+            while (resultSet.next()) {
+                int library_id = resultSet.getInt("id");
+                statement1.execute();
+                createPlaylistStatement.setString(1, playlist.getName());
+                createPlaylistStatement.setBoolean(2, true);
+                createPlaylistStatement.setInt(3, library_id);
+                createPlaylistStatement.execute();
+                statement2.execute();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     public void updateNameOfPlaylist(int id, String name) {
 
         try (Connection connection = connectionFactory.getConnection();
@@ -165,17 +203,5 @@ public class PlaylistDAO {
         }
     }
 
-
-    public void deletePlaylistById(int id) {
-        try (
-                Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement("DELETE FROM spotitube.playlist WHERE playlist.id = ?")
-        ) {
-            statement.setInt(1, id);
-            statement.execute();
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
-    }
 }
 

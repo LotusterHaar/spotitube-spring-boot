@@ -40,6 +40,28 @@ public class PlaylistController {
     }
 
     @Path("/{id}")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deletePlaylistById(@PathParam("id") final int id, @QueryParam("token") String token) {
+        try {
+            return Response.ok().entity(playlistService.deletePlaylistById(id, token)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addPlayList(@QueryParam("token") String token, Playlist playlist) {
+        try {
+            return Response.ok().entity(playlistService.addPlayList(token, playlist)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @Path("/{id}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -48,17 +70,6 @@ public class PlaylistController {
             return Response.ok().entity(playlistService.editNameOfPlaylist(id, token, playlist.getName())).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND).build();
-        }
-    }
-
-    @Path("/{id}")
-    @DELETE
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response deletePlaylistById(@PathParam("id") final int id, @QueryParam("token") String token) {
-        try {
-            return Response.ok().entity(playlistService.deletePlaylistById(id, token)).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
 

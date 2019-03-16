@@ -1,6 +1,7 @@
 package oose.dea.lotusterhaar.services.rest;
 
 import oose.dea.lotusterhaar.domain.Library;
+import oose.dea.lotusterhaar.domain.Playlist;
 import oose.dea.lotusterhaar.domain.TrackOverview;
 import oose.dea.lotusterhaar.persistence.PlaylistDAO;
 import oose.dea.lotusterhaar.persistence.TokenDAO;
@@ -33,16 +34,6 @@ public class PlaylistRestService {
         }
     }
 
-    public Library editNameOfPlaylist(int id, String token, String name) throws Exception {
-        if (token.equals("1234-1234-1234-1234")) {
-            playlistDAO.updateNameOfPlaylist(id, name);
-            return playlistDAO.getAllPlaylists(token);
-
-        } else {
-            throw new AuthenticationException("Usertoken is invalid");
-        }
-    }
-
 
     public Library deletePlaylistById(int id, String token) throws Exception {
         /*      boolean validToken = tokenDAO.tokenExpired(token);*/
@@ -52,6 +43,27 @@ public class PlaylistRestService {
             return getAllPlaylists(token);
         } else {
             throw new TokenExpiredException(tokenExpired);
+        }
+    }
+
+    public Library addPlayList(String token, Playlist playlist) throws Exception {
+        boolean validToken = true;
+        if (validToken) {
+            playlistDAO.addPlaylist(token, playlist);
+            return getAllPlaylists(token);
+        } else {
+            throw new TokenExpiredException(tokenExpired);
+        }
+    }
+
+
+    public Library editNameOfPlaylist(int id, String token, String name) throws Exception {
+        if (token.equals("1234-1234-1234-1234")) {
+            playlistDAO.updateNameOfPlaylist(id, name);
+            return playlistDAO.getAllPlaylists(token);
+
+        } else {
+            throw new AuthenticationException("Usertoken is invalid");
         }
     }
 }

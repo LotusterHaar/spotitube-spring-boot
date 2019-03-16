@@ -163,21 +163,17 @@ public class PlaylistDAO {
         try (
                 Connection connection = connectionFactory.getConnection();
                 PreparedStatement getLibraryIdsStatement = connection.prepareStatement("SELECT library.id FROM spotitube.library WHERE library.username = ?");
-                PreparedStatement statement1 = connection.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");
                 PreparedStatement createPlaylistStatement = connection.prepareStatement("INSERT INTO playlist (name, owner, library_id) VALUES (?,?,?)");
-                PreparedStatement statement2 = connection.prepareStatement("SET FOREIGN_KEY_CHECKS = 1");
         ) {
             String username = tokenDAO.findUsernameByToken(token);
             getLibraryIdsStatement.setString(1, username);
             ResultSet resultSet = getLibraryIdsStatement.executeQuery();
             while (resultSet.next()) {
                 int library_id = resultSet.getInt("id");
-                statement1.execute();
                 createPlaylistStatement.setString(1, playlist.getName());
                 createPlaylistStatement.setBoolean(2, true);
                 createPlaylistStatement.setInt(3, library_id);
                 createPlaylistStatement.execute();
-                statement2.execute();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

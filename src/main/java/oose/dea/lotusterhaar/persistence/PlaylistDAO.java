@@ -199,5 +199,18 @@ public class PlaylistDAO {
         }
     }
 
+    public void deleteTrackFromPlaylist(int playlistId, int trackId) {
+
+        try (Connection connection = connectionFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM playlist_has_tracks WHERE playlist_id = ? AND track_id = ?");
+        ) {
+            statement.setInt(1, playlistId);
+            statement.setInt(2, trackId);
+            statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
 

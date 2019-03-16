@@ -66,4 +66,14 @@ public class PlaylistRestService {
             throw new AuthenticationException("Usertoken is invalid");
         }
     }
+
+    public Library deleteTrackFromPlaylist(int playlistId, int trackId, String token) throws Exception {
+        boolean validToken = true;
+        if (validToken) {
+            playlistDAO.deleteTrackFromPlaylist(playlistId, trackId);
+            return playlistDAO.getAllPlaylists(token);
+        } else {
+            throw new TokenExpiredException(tokenExpired);
+        }
+    }
 }

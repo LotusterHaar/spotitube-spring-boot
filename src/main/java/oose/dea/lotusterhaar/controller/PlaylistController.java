@@ -73,5 +73,18 @@ public class PlaylistController {
         }
     }
 
+    @Path("/{playlistId}/tracks/{trackId}")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteTrackFromPlaylist(@PathParam("playlistId") final int playlistId, @PathParam("trackId") final int trackId, @QueryParam("token") String token) {
+        try {
+            return Response.ok().entity(playlistService.deleteTrackFromPlaylist(playlistId, trackId, token)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+
+
 }
 

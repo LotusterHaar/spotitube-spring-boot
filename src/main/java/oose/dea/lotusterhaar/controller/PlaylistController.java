@@ -1,6 +1,5 @@
 package oose.dea.lotusterhaar.controller;
 
-import oose.dea.lotusterhaar.domain.Library;
 import oose.dea.lotusterhaar.domain.Playlist;
 import oose.dea.lotusterhaar.domain.Track;
 import oose.dea.lotusterhaar.services.rest.PlaylistRestService;
@@ -23,9 +22,12 @@ public class PlaylistController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Library getPlaylists(@QueryParam("token") String token) {
-        Library library = playlistService.getAllPlaylists(token);
-        return library;
+    public Response getPlaylists(@QueryParam("token") String token) {
+        try {
+            return Response.ok().entity(playlistService.getAllPlaylists(token)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
     }
 
     @Path("{id}/tracks")
@@ -36,7 +38,7 @@ public class PlaylistController {
         try {
             return Response.ok().entity(playlistService.getAllTracksFromPlaylist(id, token)).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
 
@@ -58,7 +60,7 @@ public class PlaylistController {
         try {
             return Response.ok().entity(playlistService.addPlayList(token, playlist)).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
 
@@ -70,7 +72,7 @@ public class PlaylistController {
         try {
             return Response.ok().entity(playlistService.editNameOfPlaylist(id, token, playlist.getName())).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
 
@@ -81,7 +83,7 @@ public class PlaylistController {
         try {
             return Response.ok().entity(playlistService.deleteTrackFromPlaylist(playlistId, trackId, token)).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
 
@@ -93,7 +95,7 @@ public class PlaylistController {
         try {
             return Response.ok().entity(playlistService.addTrackToPlaylist(id, token, track)).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
 

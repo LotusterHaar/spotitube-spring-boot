@@ -24,11 +24,9 @@ public class TrackController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllTracksFromPlaylist(@QueryParam("token") String token, @QueryParam("forPlaylist") final int playlistId) {
         try {
-            System.out.println("getTracks");
             return Response.ok().entity(trackRestService.getTracks(playlistId, token)).build();
         } catch (Exception e) {
-            System.out.println("getTracks exceptie");
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
 }

@@ -4,6 +4,9 @@ public class UserToken {
     private String token;
     private String user;
 
+    public UserToken() {
+    }
+
     public UserToken(String token, String user) {
         this.token = token;
         this.user = user;

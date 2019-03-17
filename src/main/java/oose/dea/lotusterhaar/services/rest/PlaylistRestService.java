@@ -1,9 +1,6 @@
 package oose.dea.lotusterhaar.services.rest;
 
-import oose.dea.lotusterhaar.domain.Library;
-import oose.dea.lotusterhaar.domain.Playlist;
-import oose.dea.lotusterhaar.domain.Track;
-import oose.dea.lotusterhaar.domain.TrackOverview;
+import oose.dea.lotusterhaar.domain.*;
 import oose.dea.lotusterhaar.persistence.PlaylistDAO;
 import oose.dea.lotusterhaar.persistence.TokenDAO;
 import oose.dea.lotusterhaar.persistence.TokenExpiredException;
@@ -27,19 +24,18 @@ public class PlaylistRestService {
     }
 
     public TrackOverview getAllTracksFromPlaylist(int id, String token) throws Exception {
-        if (token.equals("1234-1234-1234-1234")) {
+        UserToken userToken = tokenDAO.getUserToken(token);
+        if (!tokenDAO.tokenExpired(userToken)) {
             return playlistDAO.getAllTracksFromPlaylist(id);
-
         } else {
-            throw new AuthenticationException("Usertoken is invalid");
+            throw new AuthenticationException(tokenExpired);
         }
     }
 
 
     public Library deletePlaylistById(int id, String token) throws Exception {
-        /*      boolean validToken = tokenDAO.tokenExpired(token);*/
-        boolean validToken = true;
-        if (validToken) {
+        UserToken userToken = tokenDAO.getUserToken(token);
+        if (!tokenDAO.tokenExpired(userToken)) {
             playlistDAO.deletePlaylistById(id);
             return getAllPlaylists(token);
         } else {
@@ -48,8 +44,8 @@ public class PlaylistRestService {
     }
 
     public Library addPlayList(String token, Playlist playlist) throws Exception {
-        boolean validToken = true;
-        if (validToken) {
+        UserToken userToken = tokenDAO.getUserToken(token);
+        if (!tokenDAO.tokenExpired(userToken)) {
             playlistDAO.addPlaylist(token, playlist);
             return getAllPlaylists(token);
         } else {
@@ -59,18 +55,19 @@ public class PlaylistRestService {
 
 
     public Library editNameOfPlaylist(int id, String token, String name) throws Exception {
-        if (token.equals("1234-1234-1234-1234")) {
+        UserToken userToken = tokenDAO.getUserToken(token);
+        if (!tokenDAO.tokenExpired(userToken)) {
             playlistDAO.updateNameOfPlaylist(id, name);
             return playlistDAO.getAllPlaylists(token);
 
         } else {
-            throw new AuthenticationException("Usertoken is invalid");
+            throw new AuthenticationException(tokenExpired);
         }
     }
 
     public Library deleteTrackFromPlaylist(int playlistId, int trackId, String token) throws Exception {
-        boolean validToken = true;
-        if (validToken) {
+        UserToken userToken = tokenDAO.getUserToken(token);
+        if (!tokenDAO.tokenExpired(userToken)) {
             playlistDAO.deleteTrackFromPlaylist(playlistId, trackId);
             return playlistDAO.getAllPlaylists(token);
         } else {
@@ -79,8 +76,8 @@ public class PlaylistRestService {
     }
 
     public TrackOverview addTrackToPlaylist(int id, String token, Track track) throws Exception {
-        boolean validToken = true;
-        if (validToken) {
+        UserToken userToken = tokenDAO.getUserToken(token);
+        if (!tokenDAO.tokenExpired(userToken)) {
             playlistDAO.addTrackToPlaylist(id, track);
             return playlistDAO.getAllTracksFromPlaylist(id);
         } else {

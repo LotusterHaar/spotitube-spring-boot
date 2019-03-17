@@ -8,6 +8,9 @@ public class Track {
     private int playcount;
     private boolean offlineAvailable;
 
+    public Track() {
+    }
+
     public Track(int id, String title, String performer, int duration, int playcount, boolean offlineAvailable) {
         this.id = id;
         this.title = title;

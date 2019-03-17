@@ -23,7 +23,6 @@ public class TrackDAO {
         ArrayList<Track> videos = getVideoTracks(id);
         tracks.addTracks(songs);
         tracks.addTracks(videos);
-        System.out.println(tracks);
         return tracks;
     }
 

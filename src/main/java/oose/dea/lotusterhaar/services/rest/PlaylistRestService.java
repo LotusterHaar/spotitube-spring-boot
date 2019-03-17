@@ -78,11 +78,11 @@ public class PlaylistRestService {
         }
     }
 
-    public Library addTrackToPlaylist(int id, String token, Track track) throws Exception {
+    public TrackOverview addTrackToPlaylist(int id, String token, Track track) throws Exception {
         boolean validToken = true;
         if (validToken) {
             playlistDAO.addTrackToPlaylist(id, track);
-            return playlistDAO.getAllPlaylists(token);
+            return playlistDAO.getAllTracksFromPlaylist(id);
         } else {
             throw new TokenExpiredException(tokenExpired);
         }

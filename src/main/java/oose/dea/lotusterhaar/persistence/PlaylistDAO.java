@@ -213,12 +213,13 @@ public class PlaylistDAO {
     }
 
     public void addTrackToPlaylist(int id, Track track) {
-
+        System.out.println("track");
+        System.out.println(track.toString());
         try (Connection connection = connectionFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO playlist_has_tracks (playlist_id,track_id) VALUES (?,?)");
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO spotitube.playlist_has_tracks (playlist_id,track_id) VALUES (?,?)");
         ) {
             statement.setInt(1, id);
-            statement.setInt(1, track.getId());
+            statement.setInt(2, track.getId());
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -216,15 +216,18 @@ public class PlaylistDAO {
         System.out.println("track");
         System.out.println(track.toString());
         try (Connection connection = connectionFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO spotitube.playlist_has_tracks (playlist_id,track_id) VALUES (?,?)");
+             PreparedStatement addTrackStatement = connection.prepareStatement("INSERT INTO spotitube.playlist_has_tracks (playlist_id,track_id) VALUES (?,?)");
+             PreparedStatement updateTrackStatement = connection.prepareStatement("UPDATE spotitube.track SET track.offlineAvailable = ? WHERE track.id = ?");
         ) {
-            statement.setInt(1, id);
-            statement.setInt(2, track.getId());
-            statement.execute();
+            addTrackStatement.setInt(1, id);
+            addTrackStatement.setInt(2, track.getId());
+            addTrackStatement.execute();
+            updateTrackStatement.setBoolean(1, track.isOfflineAvailable());
+            updateTrackStatement.setInt(2, track.getId());
+            updateTrackStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
 }
 

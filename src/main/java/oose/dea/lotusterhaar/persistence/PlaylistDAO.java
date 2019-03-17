@@ -212,5 +212,18 @@ public class PlaylistDAO {
         }
     }
 
+    public void addTrackToPlaylist(int id, Track track) {
+
+        try (Connection connection = connectionFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO playlist_has_tracks (playlist_id,track_id) VALUES (?,?)");
+        ) {
+            statement.setInt(1, id);
+            statement.setInt(1, track.getId());
+            statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
 

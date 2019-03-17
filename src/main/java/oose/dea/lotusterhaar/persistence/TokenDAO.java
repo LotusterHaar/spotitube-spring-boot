@@ -1,5 +1,6 @@
 package oose.dea.lotusterhaar.persistence;
 
+import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,12 +8,10 @@ import java.sql.SQLException;
 
 public class TokenDAO {
 
-
-    private ConnectionFactory connectionFactory;
+    @Inject
+    ConnectionFactory connectionFactory;
 
     public TokenDAO() {
-        connectionFactory = new ConnectionFactory();
-
     }
 
     public boolean tokenExpired(String token) {

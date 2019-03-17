@@ -2,6 +2,7 @@ package oose.dea.lotusterhaar.services.rest;
 
 import oose.dea.lotusterhaar.domain.Library;
 import oose.dea.lotusterhaar.domain.Playlist;
+import oose.dea.lotusterhaar.domain.Track;
 import oose.dea.lotusterhaar.domain.TrackOverview;
 import oose.dea.lotusterhaar.persistence.PlaylistDAO;
 import oose.dea.lotusterhaar.persistence.TokenDAO;
@@ -71,6 +72,16 @@ public class PlaylistRestService {
         boolean validToken = true;
         if (validToken) {
             playlistDAO.deleteTrackFromPlaylist(playlistId, trackId);
+            return playlistDAO.getAllPlaylists(token);
+        } else {
+            throw new TokenExpiredException(tokenExpired);
+        }
+    }
+
+    public Library addTrackToPlaylist(int id, String token, Track track) throws Exception {
+        boolean validToken = true;
+        if (validToken) {
+            playlistDAO.addTrackToPlaylist(id, track);
             return playlistDAO.getAllPlaylists(token);
         } else {
             throw new TokenExpiredException(tokenExpired);

@@ -21,6 +21,10 @@ public class TrackOverview {
     }
 
     public void addTrack(Track track) {
-        tracks.add(track);
+        this.tracks.add(track);
+    }
+
+    public void addTracks(ArrayList<Track> tracks) {
+        this.tracks.addAll(tracks);
     }
 }

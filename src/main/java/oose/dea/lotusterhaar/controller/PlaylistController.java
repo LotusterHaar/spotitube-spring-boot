@@ -2,6 +2,7 @@ package oose.dea.lotusterhaar.controller;
 
 import oose.dea.lotusterhaar.domain.Library;
 import oose.dea.lotusterhaar.domain.Playlist;
+import oose.dea.lotusterhaar.domain.Track;
 import oose.dea.lotusterhaar.services.rest.PlaylistRestService;
 
 import javax.inject.Inject;
@@ -31,7 +32,7 @@ public class PlaylistController {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllTracksFromPlaylist(@PathParam("id") final int id, @QueryParam("token") String token) throws Exception {
+    public Response getAllTracksFromPlaylist(@PathParam("id") final int id, @QueryParam("token") String token) {
         try {
             return Response.ok().entity(playlistService.getAllTracksFromPlaylist(id, token)).build();
         } catch (Exception e) {
@@ -84,6 +85,17 @@ public class PlaylistController {
         }
     }
 
+    @Path("/{id}/tracks")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addTrackToPlaylist(@PathParam("id") final int id, @QueryParam("token") String token, Track track) {
+        try {
+            return Response.ok().entity(playlistService.addTrackToPlaylist(id, token, track)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
 
 
 }

@@ -54,12 +54,11 @@ DROP TABLE IF EXISTS `library`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `library` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `length` int(11) DEFAULT NULL,
   `username` varchar(45) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`,`username`),
   KEY `account_idx` (`username`),
   CONSTRAINT `account` FOREIGN KEY (`username`) REFERENCES `account` (`user`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +67,7 @@ CREATE TABLE `library` (
 
 LOCK TABLES `library` WRITE;
 /*!40000 ALTER TABLE `library` DISABLE KEYS */;
-INSERT INTO `library` VALUES (1,NULL,'lotus');
+INSERT INTO `library` VALUES (2,'jan'),(1,'lotus');
 /*!40000 ALTER TABLE `library` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,7 +87,7 @@ CREATE TABLE `playlist` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `library_id_idx` (`library_id`),
   CONSTRAINT `library_id` FOREIGN KEY (`library_id`) REFERENCES `library` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +96,7 @@ CREATE TABLE `playlist` (
 
 LOCK TABLES `playlist` WRITE;
 /*!40000 ALTER TABLE `playlist` DISABLE KEYS */;
-INSERT INTO `playlist` VALUES (1,'Pop',1,1),(2,'Country',1,1);
+INSERT INTO `playlist` VALUES (1,'Pop',1,1),(2,'Country',0,1),(3,'All',0,2),(4,'Ed Sheeran',0,2),(16,'lalala',0,1),(17,'great songs',1,2);
 /*!40000 ALTER TABLE `playlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,9 +123,24 @@ CREATE TABLE `playlist_has_tracks` (
 
 LOCK TABLES `playlist_has_tracks` WRITE;
 /*!40000 ALTER TABLE `playlist_has_tracks` DISABLE KEYS */;
-INSERT INTO `playlist_has_tracks` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(2,7),(2,8),(2,9);
+INSERT INTO `playlist_has_tracks` VALUES (3,1),(3,2),(1,3),(3,3),(1,4),(3,4),(1,5),(3,5),(1,6),(3,6),(2,7),(3,7),(2,8),(3,8),(2,9),(3,9);
 /*!40000 ALTER TABLE `playlist_has_tracks` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `playlists_view`
+--
+
+DROP TABLE IF EXISTS `playlists_view`;
+/*!50001 DROP VIEW IF EXISTS `playlists_view`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8mb4;
+/*!50001 CREATE VIEW `playlists_view` AS SELECT 
+ 1 AS `id`,
+ 1 AS `name`,
+ 1 AS `owner`,
+ 1 AS `username`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `songtrack`
@@ -155,6 +169,24 @@ INSERT INTO `songtrack` VALUES (1,'%'),(2,'%'),(3,'X'),(4,'+'),(8,'Expectations'
 UNLOCK TABLES;
 
 --
+-- Temporary view structure for view `songtracks_view`
+--
+
+DROP TABLE IF EXISTS `songtracks_view`;
+/*!50001 DROP VIEW IF EXISTS `songtracks_view`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8mb4;
+/*!50001 CREATE VIEW `songtracks_view` AS SELECT 
+ 1 AS `id`,
+ 1 AS `title`,
+ 1 AS `performer`,
+ 1 AS `duration`,
+ 1 AS `playcount`,
+ 1 AS `offlineAvailable`,
+ 1 AS `album`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `token`
 --
 
@@ -177,6 +209,7 @@ CREATE TABLE `token` (
 
 LOCK TABLES `token` WRITE;
 /*!40000 ALTER TABLE `token` DISABLE KEYS */;
+INSERT INTO `token` VALUES ('1393a21a-0cf1-49bc-b7ce-94735b8a40f9','lotus','2019-03-28 07:31:34'),('c22d245d-bce1-4d45-8e95-557c6edda288','jan','2019-03-28 07:12:36');
 /*!40000 ALTER TABLE `token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -205,7 +238,7 @@ CREATE TABLE `track` (
 
 LOCK TABLES `track` WRITE;
 /*!40000 ALTER TABLE `track` DISABLE KEYS */;
-INSERT INTO `track` VALUES (1,'Castle on the Hill','Ed Sheeran',261,124,1),(2,'Perfect','Ed Sheeran',263,153,1),(3,'Tenerife Sea','Ed Sheeran',241,239,0),(4,'The A Team','Ed Sheeran',258,247,1),(5,'Girls Like You ft. Cardi B','Maroon 5',270,167,0),(6,'Stereo Hearts ft. Adam Levine','Gym Class Heroes',216,84,0),(7,'Babe ft. Taylor Swift','Sugarland',279,26,1),(8,'Meant To Be ft. Florida Georgia Line','Bebe Rexsha',164,5,0),(9,'Simple','Florida Georgia Line',3,185,0);
+INSERT INTO `track` VALUES (1,'Castle on the Hill','Ed Sheeran',261,124,1),(2,'Perfect','Ed Sheeran',263,153,1),(3,'Tenerife Sea','Ed Sheeran',241,239,0),(4,'The A Team','Ed Sheeran',258,247,0),(5,'Girls Like You ft. Cardi B','Maroon 5',270,167,1),(6,'Stereo Hearts ft. Adam Levine','Gym Class Heroes',216,84,1),(7,'Babe ft. Taylor Swift','Sugarland',279,26,1),(8,'Meant To Be ft. Florida Georgia Line','Bebe Rexsha',164,5,0),(9,'Simple','Florida Georgia Line',185,3,1);
 /*!40000 ALTER TABLE `track` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -257,6 +290,61 @@ INSERT INTO `videotrack` VALUES (5,'2018-05-30','https://youtu.be/aJOTlE1K90k'),
 UNLOCK TABLES;
 
 --
+-- Temporary view structure for view `videotracks_view`
+--
+
+DROP TABLE IF EXISTS `videotracks_view`;
+/*!50001 DROP VIEW IF EXISTS `videotracks_view`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8mb4;
+/*!50001 CREATE VIEW `videotracks_view` AS SELECT 
+ 1 AS `id`,
+ 1 AS `title`,
+ 1 AS `performer`,
+ 1 AS `duration`,
+ 1 AS `playcount`,
+ 1 AS `offlineAvailable`,
+ 1 AS `publicationDate`,
+ 1 AS `description`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `playlists_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `playlists_view`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `playlists_view` AS select `playlist`.`id` AS `id`,`playlist`.`name` AS `name`,`playlist`.`owner` AS `owner`,`library`.`username` AS `username` from (`library` left join `playlist` on((`playlist`.`library_id` = `library`.`id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `songtracks_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `songtracks_view`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `songtracks_view` AS select `track`.`id` AS `id`,`track`.`title` AS `title`,`track`.`performer` AS `performer`,`track`.`duration` AS `duration`,`track`.`playcount` AS `playcount`,`track`.`offlineAvailable` AS `offlineAvailable`,`songtrack`.`album` AS `album` from (`songtrack` left join `track` on((`songtrack`.`id` = `track`.`id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `tracks_view`
 --
 
@@ -273,6 +361,24 @@ UNLOCK TABLES;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `videotracks_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `videotracks_view`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `videotracks_view` AS select `track`.`id` AS `id`,`track`.`title` AS `title`,`track`.`performer` AS `performer`,`track`.`duration` AS `duration`,`track`.`playcount` AS `playcount`,`track`.`offlineAvailable` AS `offlineAvailable`,`videotrack`.`publicationDate` AS `publicationDate`,`videotrack`.`description` AS `description` from (`videotrack` left join `track` on((`videotrack`.`id` = `track`.`id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -283,4 +389,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-25 19:12:17
+-- Dump completed on 2019-03-27 22:05:01

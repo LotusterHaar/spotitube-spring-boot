@@ -17,42 +17,43 @@ public class PlaylistDAO {
     @Inject
     TokenDAO tokenDAO;
 
-    public Library getAllPlaylists(String token) {
+    public Library getAllPlaylists(UserToken token) {
         Library library = new Library();
+        int playlistsLength = 0;
         try (Connection connection = connectionFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(
-                     "SELECT \n" +
-                             "    playlists_view.*, token.token\n" +
-                             "FROM\n" +
-                             "    playlists_view\n" +
-                             "        LEFT JOIN\n" +
-                             "    token ON playlists_view.username = token.account_user\n" +
-                             "WHERE\n" +
-                             "    token.token = ? \n");
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM spotitube.playlists_view");
         ) {
-            statement.setString(1, token);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int playlist_id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
-                Boolean owner = resultSet.getBoolean("owner");
+                String user = resultSet.getString("username");
+                System.out.println(user);
+                boolean owner = false;
+                if (user.equals(token.getUser())) {
+                    owner = true;
+                }
                 library.getPlaylists().add(new Playlist(playlist_id, name, owner, new ArrayList<Track>()));
+                playlistsLength += getTotalLengthFromPlaylist(playlist_id);
             }
+            System.out.println(playlistsLength);
+            library.setLength(playlistsLength);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return library;
     }
 
-    public int getTotalLengthFromAllPlaylists() {
+    public int getTotalLengthFromPlaylist(int id) {
         int totalLength = 0;
         try (
                 Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement("");
+                PreparedStatement statement = connection.prepareStatement("SELECT SUM(duration) AS playlist_length FROM spotitube.track WHERE id IN (SELECT track_id FROM spotitube.playlist_has_tracks WHERE playlist_id = ?)");
         ) {
+            statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                totalLength = resultSet.getInt("");
+                totalLength = resultSet.getInt("playlist_length");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -213,8 +214,7 @@ public class PlaylistDAO {
     }
 
     public void addTrackToPlaylist(int id, Track track) {
-        System.out.println("track");
-        System.out.println(track.toString());
+
         try (Connection connection = connectionFactory.getConnection();
              PreparedStatement addTrackStatement = connection.prepareStatement("INSERT INTO spotitube.playlist_has_tracks (playlist_id,track_id) VALUES (?,?)");
              PreparedStatement updateTrackStatement = connection.prepareStatement("UPDATE spotitube.track SET track.offlineAvailable = ? WHERE track.id = ?");

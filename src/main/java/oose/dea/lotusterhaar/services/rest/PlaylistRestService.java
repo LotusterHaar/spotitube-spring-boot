@@ -19,13 +19,13 @@ public class PlaylistRestService {
     @Inject
     private TokenDAO tokenDAO;
 
-    public Library getAllPlaylists(String token) throws AuthenticationException {
+    public Library getAllPlaylists(String token) throws Exception {
         UserToken userToken = tokenDAO.getUserToken(token);
         System.out.println(userToken);
         if (!tokenDAO.tokenExpired(userToken)) {
             return playlistDAO.getAllPlaylists(userToken);
         } else {
-            throw new AuthenticationException(tokenExpired);
+            throw new TokenExpiredException(tokenExpired);
         }
     }
 
@@ -34,7 +34,7 @@ public class PlaylistRestService {
         if (!tokenDAO.tokenExpired(userToken)) {
             return playlistDAO.getAllTracksFromPlaylist(id);
         } else {
-            throw new AuthenticationException(tokenExpired);
+            throw new TokenExpiredException(tokenExpired);
         }
     }
 
@@ -49,7 +49,7 @@ public class PlaylistRestService {
         }
     }
 
-    public Library addPlayList(String token, Playlist playlist) throws Exception {
+    public Library addPlaylist(String token, Playlist playlist) throws Exception {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (!tokenDAO.tokenExpired(userToken)) {
             playlistDAO.addPlaylist(token, playlist);

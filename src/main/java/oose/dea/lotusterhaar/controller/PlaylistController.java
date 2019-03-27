@@ -56,9 +56,9 @@ public class PlaylistController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addPlayList(@QueryParam("token") String token, Playlist playlist) {
+    public Response addPlaylist(@QueryParam("token") String token, Playlist playlist) {
         try {
-            return Response.ok().entity(playlistService.addPlayList(token, playlist)).build();
+            return Response.ok().entity(playlistService.addPlaylist(token, playlist)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }

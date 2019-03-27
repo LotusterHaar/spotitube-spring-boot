@@ -28,7 +28,7 @@ public class LoginController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPassword(Account user) {
+    public Response login(Account user) {
         try {
             return Response.ok().entity(loginRestService.login(user)).build();
         } catch (LoginException e) {

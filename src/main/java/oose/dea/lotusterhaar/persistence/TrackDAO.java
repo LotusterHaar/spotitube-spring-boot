@@ -2,7 +2,7 @@ package oose.dea.lotusterhaar.persistence;
 
 import oose.dea.lotusterhaar.domain.SongTrack;
 import oose.dea.lotusterhaar.domain.Track;
-import oose.dea.lotusterhaar.domain.TrackOverview;
+import oose.dea.lotusterhaar.domain.TracksOverview;
 import oose.dea.lotusterhaar.domain.VideoTrack;
 
 import javax.inject.Inject;
@@ -17,8 +17,8 @@ public class TrackDAO {
     @Inject
     ConnectionFactory connectionFactory;
 
-    public TrackOverview getTracks(int id) {
-        TrackOverview tracks = new TrackOverview();
+    public TracksOverview getTracks(int id) {
+        TracksOverview tracks = new TracksOverview();
         ArrayList<Track> songs = getSongTracks(id);
         ArrayList<Track> videos = getVideoTracks(id);
         tracks.addTracks(songs);

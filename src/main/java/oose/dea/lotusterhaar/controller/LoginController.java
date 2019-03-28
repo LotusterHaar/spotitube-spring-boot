@@ -13,9 +13,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.logging.Level;
 
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 @Singleton
 @Path("/login")
@@ -32,7 +30,6 @@ public class LoginController {
         try {
             return Response.ok().entity(loginRestService.login(user)).build();
         } catch (LoginException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }

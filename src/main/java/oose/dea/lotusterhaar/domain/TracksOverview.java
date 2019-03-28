@@ -2,13 +2,13 @@ package oose.dea.lotusterhaar.domain;
 
 import java.util.ArrayList;
 
-public class TrackOverview {
+public class TracksOverview {
     ArrayList<Track> tracks = new ArrayList<Track>();
 
-    public TrackOverview() {
+    public TracksOverview() {
     }
 
-    public TrackOverview(ArrayList<Track> tracks) {
+    public TracksOverview(ArrayList<Track> tracks) {
         this.tracks = tracks;
     }
 

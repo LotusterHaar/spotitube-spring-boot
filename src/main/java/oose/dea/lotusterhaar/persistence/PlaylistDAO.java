@@ -28,7 +28,6 @@ public class PlaylistDAO {
                 int playlist_id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 String user = resultSet.getString("username");
-                System.out.println(user);
                 boolean owner = false;
                 if (user.equals(token.getUser())) {
                     owner = true;
@@ -37,6 +36,7 @@ public class PlaylistDAO {
                 playlistsLength += getTotalLengthFromPlaylist(playlist_id);
             }
             System.out.println(playlistsLength);
+            System.out.println(library);
             library.setLength(playlistsLength);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -61,19 +61,19 @@ public class PlaylistDAO {
         return totalLength;
     }
 
-    public TrackOverview getAllTracksFromPlaylist(int playlistId) {
-        TrackOverview trackOverview = new TrackOverview();
+    public TracksOverview getAllTracksFromPlaylist(int playlistId) {
+        TracksOverview tracksOverview = new TracksOverview();
 
-        TrackOverview songTrackOverview = getSongsTracksInPlaylist(playlistId);
-        TrackOverview videoTrackOverview = getVideoTracksInPlaylist(playlistId);
-        trackOverview.getTracks().addAll(songTrackOverview.getTracks());
-        trackOverview.getTracks().addAll(videoTrackOverview.getTracks());
+        TracksOverview songTracksOverview = getSongsTracksInPlaylist(playlistId);
+        TracksOverview videoTracksOverview = getVideoTracksInPlaylist(playlistId);
+        tracksOverview.getTracks().addAll(songTracksOverview.getTracks());
+        tracksOverview.getTracks().addAll(videoTracksOverview.getTracks());
 
-        return trackOverview;
+        return tracksOverview;
     }
 
-    public TrackOverview getSongsTracksInPlaylist(int playlistId) {
-        TrackOverview trackOverview = new TrackOverview();
+    public TracksOverview getSongsTracksInPlaylist(int playlistId) {
+        TracksOverview tracksOverview = new TracksOverview();
         try (Connection connection = connectionFactory.getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT \n" +
                      "    *\n" +
@@ -102,16 +102,16 @@ public class PlaylistDAO {
                 int playcount = resultSet.getInt("playcount");
                 Boolean offlineAvailable = resultSet.getBoolean("offlineAvailable");
                 String album = resultSet.getString("album");
-                trackOverview.addTrack(new SongTrack(track_id, title, performer, duration, playcount, offlineAvailable, album));
+                tracksOverview.addTrack(new SongTrack(track_id, title, performer, duration, playcount, offlineAvailable, album));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return trackOverview;
+        return tracksOverview;
     }
 
-    public TrackOverview getVideoTracksInPlaylist(int playlistId) {
-        TrackOverview trackOverview = new TrackOverview();
+    public TracksOverview getVideoTracksInPlaylist(int playlistId) {
+        TracksOverview tracksOverview = new TracksOverview();
         try (Connection connection = connectionFactory.getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT \n" +
                      "    *\n" +
@@ -140,12 +140,12 @@ public class PlaylistDAO {
                 Boolean offlineAvailable = resultSet.getBoolean("offlineAvailable");
                 String publicationDate = resultSet.getString("publicationDate");
                 String description = resultSet.getString("description");
-                trackOverview.addTrack(new VideoTrack(track_id, title, performer, duration, playcount, offlineAvailable, publicationDate, description));
+                tracksOverview.addTrack(new VideoTrack(track_id, title, performer, duration, playcount, offlineAvailable, publicationDate, description));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return trackOverview;
+        return tracksOverview;
     }
 
     public void deletePlaylistById(int id) {

@@ -29,7 +29,7 @@ public class PlaylistRestService {
         }
     }
 
-    public TrackOverview getAllTracksFromPlaylist(int id, String token) throws Exception {
+    public TracksOverview getAllTracksFromPlaylist(int id, String token) throws Exception {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (!tokenDAO.tokenExpired(userToken)) {
             return playlistDAO.getAllTracksFromPlaylist(id);
@@ -71,17 +71,17 @@ public class PlaylistRestService {
         }
     }
 
-    public Library deleteTrackFromPlaylist(int playlistId, int trackId, String token) throws Exception {
+    public TracksOverview deleteTrackFromPlaylist(int playlistId, int trackId, String token) throws Exception {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (!tokenDAO.tokenExpired(userToken)) {
             playlistDAO.deleteTrackFromPlaylist(playlistId, trackId);
-            return playlistDAO.getAllPlaylists(userToken);
+            return playlistDAO.getAllTracksFromPlaylist(playlistId);
         } else {
             throw new TokenExpiredException(tokenExpired);
         }
     }
 
-    public TrackOverview addTrackToPlaylist(int id, String token, Track track) throws Exception {
+    public TracksOverview addTrackToPlaylist(int id, String token, Track track) throws Exception {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (!tokenDAO.tokenExpired(userToken)) {
             playlistDAO.addTrackToPlaylist(id, track);

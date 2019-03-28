@@ -4,7 +4,7 @@ package oose.dea.lotusterhaar;
 
 import oose.dea.lotusterhaar.domain.Account;
 import oose.dea.lotusterhaar.domain.Track;
-import oose.dea.lotusterhaar.domain.TrackOverview;
+import oose.dea.lotusterhaar.domain.TracksOverview;
 import oose.dea.lotusterhaar.persistence.AccountDAO;
 import oose.dea.lotusterhaar.persistence.PlaylistDAO;
 
@@ -24,8 +24,8 @@ public class App {
 
         PlaylistDAO playlistDAO = new PlaylistDAO();
 
-        TrackOverview trackOverview = playlistDAO.getSongsTracksInPlaylist(1);
-        for (Track track : trackOverview.getTracks()) {
+        TracksOverview tracksOverview = playlistDAO.getSongsTracksInPlaylist(1);
+        for (Track track : tracksOverview.getTracks()) {
             System.out.println(track);
         }
 

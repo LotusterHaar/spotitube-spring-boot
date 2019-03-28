@@ -1,6 +1,6 @@
 package oose.dea.lotusterhaar.services.rest;
 
-import oose.dea.lotusterhaar.domain.TrackOverview;
+import oose.dea.lotusterhaar.domain.TracksOverview;
 import oose.dea.lotusterhaar.domain.UserToken;
 import oose.dea.lotusterhaar.persistence.TokenDAO;
 import oose.dea.lotusterhaar.persistence.TokenExpiredException;
@@ -19,7 +19,7 @@ public class TrackRestService {
     @Inject
     private TokenDAO tokenDAO;
 
-    public TrackOverview getTracks(int id, String token) throws Exception {
+    public TracksOverview getTracks(int id, String token) throws Exception {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (!tokenDAO.tokenExpired(userToken)) {
             return trackDAO.getTracks(id);

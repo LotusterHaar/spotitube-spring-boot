@@ -28,10 +28,10 @@ public class PlaylistLocalRestService {
         library = new Library(playlists);
     }
 
-    public TrackOverview getAllTracksFromPlaylist(int id, String token) throws Exception {
+    public TracksOverview getAllTracksFromPlaylist(int id, String token) throws Exception {
         for (Playlist playlist : library.getPlaylists()) {
             if (token.equals("1234-1234-1234-1234") && id == playlist.getId()) {
-                return new TrackOverview(playlist.getTracks());
+                return new TracksOverview(playlist.getTracks());
             }
         }
         throw new Exception("No tracks found!");

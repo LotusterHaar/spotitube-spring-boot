@@ -23,7 +23,6 @@ public class LoginServiceImpl implements LoginService {
         Account account = accountDAO.findAccountByUsername(user.getUser());
 
         if (account != null && user.getPassword().equals(account.getPassword())) {
-            UserToken token = new UserToken("1234-1234-1234-1234", "Lotus ter Haar");
             return tokenDAO.createNewUserToken(user.getUser());
         } else {
             throw new LoginException("Invalid login credentials");

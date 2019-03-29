@@ -1,7 +1,7 @@
 package oose.dea.lotusterhaar.controller;
 
 import oose.dea.lotusterhaar.domain.Account;
-import oose.dea.lotusterhaar.services.rest.LoginRestService;
+import oose.dea.lotusterhaar.services.rest.LoginService;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -20,15 +20,15 @@ import javax.ws.rs.core.Response;
 public class LoginController {
 
     @Inject
-    @Named("loginRestService")
-    private LoginRestService loginRestService;
+    @Named("loginService")
+    private LoginService loginService;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(Account user) {
         try {
-            return Response.ok().entity(loginRestService.login(user)).build();
+            return Response.ok().entity(loginService.login(user)).build();
         } catch (LoginException e) {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }

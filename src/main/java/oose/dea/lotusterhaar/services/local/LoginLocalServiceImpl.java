@@ -3,11 +3,12 @@ package oose.dea.lotusterhaar.services.local;
 import oose.dea.lotusterhaar.domain.Account;
 import oose.dea.lotusterhaar.domain.LocalStorage;
 import oose.dea.lotusterhaar.domain.UserToken;
+import oose.dea.lotusterhaar.services.rest.LoginService;
 
 import javax.security.auth.login.LoginException;
 
 
-public class LoginLocalRestService {
+public class LoginLocalServiceImpl implements LoginService {
 
     private LocalStorage localStorage;
 

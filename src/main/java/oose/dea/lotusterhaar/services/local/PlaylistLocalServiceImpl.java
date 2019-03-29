@@ -1,10 +1,11 @@
 package oose.dea.lotusterhaar.services.local;
 
 import oose.dea.lotusterhaar.domain.*;
+import oose.dea.lotusterhaar.services.rest.PlaylistService;
 
 import java.util.ArrayList;
 
-public class PlaylistLocalRestService {
+public class PlaylistLocalServiceImpl implements PlaylistService {
 
     private ArrayList<Playlist> playlists = new ArrayList();
     private ArrayList<Track> tracklist1 = new ArrayList<>();
@@ -12,7 +13,7 @@ public class PlaylistLocalRestService {
     private Library library;
     private Track track1, track2, track3, track4, track5;
 
-    public PlaylistLocalRestService() {
+    public PlaylistLocalServiceImpl() {
         track1 = new SongTrack(1, "Song for Someone", "The Frames", 350, 0, false, "The cost");
         track2 = new VideoTrack(2, "The cost", "The Frames", 423, 37, true, "10-01-2005", "Title Song from the Album The Cost");
         track3 = new VideoTrack(3, "Falling Slowly", "The Frames", 436, 10, true, "10-01-2005", "Title Song from the Album The Cost");
@@ -37,7 +38,32 @@ public class PlaylistLocalRestService {
         throw new Exception("No tracks found!");
     }
 
-    public Library getAllPlaylists() {
+    @Override
+    public Library deletePlaylistById(int id, String token) throws Exception {
+        return null;
+    }
+
+    @Override
+    public Library addPlaylist(String token, Playlist playlist) throws Exception {
+        return null;
+    }
+
+    @Override
+    public Library editNameOfPlaylist(int id, String token, String name) throws Exception {
+        return null;
+    }
+
+    @Override
+    public TracksOverview deleteTrackFromPlaylist(int playlistId, int trackId, String token) throws Exception {
+        return null;
+    }
+
+    @Override
+    public TracksOverview addTrackToPlaylist(int id, String token, Track track) throws Exception {
+        return null;
+    }
+
+    public Library getAllPlaylists(String token) {
         return library;
     }
 }

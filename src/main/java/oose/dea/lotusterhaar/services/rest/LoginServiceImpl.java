@@ -9,8 +9,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.security.auth.login.LoginException;
 
-@Named("loginRestService")
-public class LoginRestService {
+@Named("loginService")
+public class LoginServiceImpl implements LoginService {
 
     @Inject
     private AccountDAO accountDAO;
@@ -18,6 +18,7 @@ public class LoginRestService {
     @Inject
     private TokenDAO tokenDAO;
 
+    @Override
     public UserToken login(Account user) throws LoginException {
         Account account = accountDAO.findAccountByUsername(user.getUser());
 

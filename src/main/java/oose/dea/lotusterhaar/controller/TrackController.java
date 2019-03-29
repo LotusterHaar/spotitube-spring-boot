@@ -1,6 +1,6 @@
 package oose.dea.lotusterhaar.controller;
 
-import oose.dea.lotusterhaar.services.rest.TrackRestService;
+import oose.dea.lotusterhaar.services.rest.TrackService;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -17,14 +17,14 @@ import javax.ws.rs.core.Response;
 public class TrackController {
 
     @Inject
-    @Named("trackRestService")
-    private TrackRestService trackRestService;
+    @Named("trackService")
+    private TrackService trackService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllTracksFromPlaylist(@QueryParam("token") String token, @QueryParam("forPlaylist") final int playlistId) {
         try {
-            return Response.ok().entity(trackRestService.getTracks(playlistId, token)).build();
+            return Response.ok().entity(trackService.getTracks(playlistId, token)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }

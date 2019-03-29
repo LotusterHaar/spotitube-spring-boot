@@ -2,7 +2,7 @@ package oose.dea.lotusterhaar;
 
 import oose.dea.lotusterhaar.domain.Account;
 import oose.dea.lotusterhaar.domain.UserToken;
-import oose.dea.lotusterhaar.services.local.LoginLocalRestService;
+import oose.dea.lotusterhaar.services.local.LoginLocalServiceImpl;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -12,14 +12,14 @@ import javax.security.auth.login.LoginException;
 
 import static org.junit.Assert.assertEquals;
 
-public class LoginRestServiceTest {
+public class LoginServiceTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-    private LoginLocalRestService sut; //system under test
+    private LoginLocalServiceImpl sut; //system under test
 
     @Before
     public void SetUp() throws Exception {
-        sut = new LoginLocalRestService();
+        sut = new LoginLocalServiceImpl();
     }
 
     @Test

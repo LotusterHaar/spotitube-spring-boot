@@ -9,8 +9,8 @@ import oose.dea.lotusterhaar.persistence.TrackDAO;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-@Named("trackRestService")
-public class TrackRestService {
+@Named("trackService")
+public class TrackServiceImpl implements TrackService {
     private static final String tokenExpired = "Token has expired!";
 
     @Inject
@@ -19,6 +19,7 @@ public class TrackRestService {
     @Inject
     private TokenDAO tokenDAO;
 
+    @Override
     public TracksOverview getTracks(int id, String token) throws Exception {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (!tokenDAO.tokenExpired(userToken)) {

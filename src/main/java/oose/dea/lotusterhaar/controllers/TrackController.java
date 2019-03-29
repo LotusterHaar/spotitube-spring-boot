@@ -1,4 +1,4 @@
-package oose.dea.lotusterhaar.controller;
+package oose.dea.lotusterhaar.controllers;
 
 import oose.dea.lotusterhaar.services.rest.TrackService;
 

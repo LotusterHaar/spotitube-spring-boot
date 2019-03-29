@@ -1,6 +1,6 @@
 package oose.dea.lotusterhaar.Controller;
 
-import oose.dea.lotusterhaar.controller.LoginController;
+import oose.dea.lotusterhaar.controllers.LoginController;
 import oose.dea.lotusterhaar.domain.Account;
 import oose.dea.lotusterhaar.domain.UserToken;
 import oose.dea.lotusterhaar.services.rest.LoginServiceImpl;

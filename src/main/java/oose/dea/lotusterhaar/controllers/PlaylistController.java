@@ -1,4 +1,4 @@
-package oose.dea.lotusterhaar.controller;
+package oose.dea.lotusterhaar.controllers;
 
 import oose.dea.lotusterhaar.domain.Playlist;
 import oose.dea.lotusterhaar.domain.Track;

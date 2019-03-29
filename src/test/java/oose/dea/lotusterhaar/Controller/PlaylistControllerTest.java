@@ -1,6 +1,6 @@
 package oose.dea.lotusterhaar.Controller;
 
-import oose.dea.lotusterhaar.controller.PlaylistController;
+import oose.dea.lotusterhaar.controllers.PlaylistController;
 import oose.dea.lotusterhaar.domain.Library;
 import oose.dea.lotusterhaar.domain.Playlist;
 import oose.dea.lotusterhaar.domain.Track;

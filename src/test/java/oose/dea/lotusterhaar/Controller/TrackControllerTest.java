@@ -1,6 +1,6 @@
 package oose.dea.lotusterhaar.Controller;
 
-import oose.dea.lotusterhaar.controller.TrackController;
+import oose.dea.lotusterhaar.controllers.TrackController;
 import oose.dea.lotusterhaar.domain.TracksOverview;
 import oose.dea.lotusterhaar.services.rest.TrackServiceImpl;
 import org.junit.Test;

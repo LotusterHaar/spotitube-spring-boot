@@ -3,7 +3,7 @@ package oose.dea.lotusterhaar.domain;
 import java.util.ArrayList;
 
 public class TracksOverview {
-    ArrayList<Track> tracks = new ArrayList<Track>();
+    private ArrayList<Track> tracks = new ArrayList<Track>();
 
     public TracksOverview() {
     }

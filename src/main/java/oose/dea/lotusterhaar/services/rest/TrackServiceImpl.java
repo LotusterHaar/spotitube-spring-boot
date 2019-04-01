@@ -20,7 +20,7 @@ public class TrackServiceImpl implements TrackService {
     private TokenDAO tokenDAO;
 
     @Override
-    public TracksOverview getTracks(int id, String token) throws Exception {
+    public TracksOverview getTracks(int id, String token) throws TokenExpiredException {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (!tokenDAO.tokenExpired(userToken)) {
             return trackDAO.getTracks(id);

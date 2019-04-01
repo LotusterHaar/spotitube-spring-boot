@@ -1,6 +1,5 @@
-package oose.dea.lotusterhaar.Controller;
+package oose.dea.lotusterhaar.controllers;
 
-import oose.dea.lotusterhaar.controllers.PlaylistController;
 import oose.dea.lotusterhaar.domain.Library;
 import oose.dea.lotusterhaar.domain.Playlist;
 import oose.dea.lotusterhaar.domain.Track;
@@ -14,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import javax.security.auth.login.LoginException;
 import javax.ws.rs.core.Response;
 
 import static junit.framework.TestCase.assertEquals;
@@ -137,7 +135,7 @@ public class PlaylistControllerTest {
 
     @Test
     public void testStatusUnauthorizedOnDeleteTrackFromPlaylist() throws Exception {
-        Mockito.when(playlistService.deleteTrackFromPlaylist(Mockito.anyInt(), Mockito.anyInt(), Mockito.any())).thenThrow(new LoginException(tokenIncorrect));
+        Mockito.when(playlistService.deleteTrackFromPlaylist(Mockito.anyInt(), Mockito.anyInt(), Mockito.any())).thenThrow(new TokenExpiredException(tokenIncorrect));
         Response response = sut.deleteTrackFromPlaylist(1, 1, "1234-1234-1234");
 
         assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
@@ -157,7 +155,7 @@ public class PlaylistControllerTest {
 
     @Test
     public void testStatusUnauthorizedOnAddTrackToPlaylist() throws Exception {
-        Mockito.when(playlistService.addTrackToPlaylist(Mockito.anyInt(), Mockito.any(), Mockito.any(Track.class))).thenThrow(new LoginException(tokenIncorrect));
+        Mockito.when(playlistService.addTrackToPlaylist(Mockito.anyInt(), Mockito.any(), Mockito.any(Track.class))).thenThrow(new TokenExpiredException(tokenIncorrect));
         Response response = sut.addTrackToPlaylist(1, "1234-1234-1234", new Track());
 
         assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());

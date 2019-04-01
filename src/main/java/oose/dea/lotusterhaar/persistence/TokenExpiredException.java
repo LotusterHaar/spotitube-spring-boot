@@ -1,6 +1,7 @@
 package oose.dea.lotusterhaar.persistence;
 
 public class TokenExpiredException extends Exception {
+
     public TokenExpiredException() {
         super();
     }

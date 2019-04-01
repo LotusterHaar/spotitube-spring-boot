@@ -1,6 +1,7 @@
 package oose.dea.lotusterhaar.services.local;
 
 import oose.dea.lotusterhaar.domain.*;
+import oose.dea.lotusterhaar.persistence.TokenExpiredException;
 import oose.dea.lotusterhaar.services.rest.PlaylistService;
 
 import java.util.ArrayList;
@@ -29,41 +30,44 @@ public class PlaylistLocalServiceImpl implements PlaylistService {
         library = new Library(playlists);
     }
 
-    public TracksOverview getAllTracksFromPlaylist(int id, String token) throws Exception {
+    @Override
+    public Library getAllPlaylists(String token) throws TokenExpiredException {
+        return null;
+    }
+
+    public TracksOverview getAllTracksFromPlaylist(int id, String token) throws TokenExpiredException {
         for (Playlist playlist : library.getPlaylists()) {
             if (token.equals("1234-1234-1234-1234") && id == playlist.getId()) {
                 return new TracksOverview(playlist.getTracks());
             }
         }
-        throw new Exception("No tracks found!");
+        throw new TokenExpiredException("No tracks found!");
     }
 
     @Override
-    public Library deletePlaylistById(int id, String token) throws Exception {
+    public Library deletePlaylistById(int id, String token) throws TokenExpiredException {
         return null;
     }
 
     @Override
-    public Library addPlaylist(String token, Playlist playlist) throws Exception {
+    public Library addPlaylist(String token, Playlist playlist) throws TokenExpiredException {
         return null;
     }
 
     @Override
-    public Library editNameOfPlaylist(int id, String token, String name) throws Exception {
+    public Library editNameOfPlaylist(int id, String token, String name) throws TokenExpiredException {
         return null;
     }
 
     @Override
-    public TracksOverview deleteTrackFromPlaylist(int playlistId, int trackId, String token) throws Exception {
+    public TracksOverview deleteTrackFromPlaylist(int playlistId, int trackId, String token) throws TokenExpiredException {
         return null;
     }
 
     @Override
-    public TracksOverview addTrackToPlaylist(int id, String token, Track track) throws Exception {
+    public TracksOverview addTrackToPlaylist(int id, String token, Track track) throws TokenExpiredException {
         return null;
     }
 
-    public Library getAllPlaylists(String token) {
-        return library;
-    }
+
 }

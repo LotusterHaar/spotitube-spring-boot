@@ -1,4 +1,4 @@
-package oose.dea.lotusterhaar.Services;
+package oose.dea.lotusterhaar.services;
 
 import oose.dea.lotusterhaar.domain.Account;
 import oose.dea.lotusterhaar.domain.UserToken;
@@ -8,14 +8,17 @@ import oose.dea.lotusterhaar.services.rest.LoginServiceImpl;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.security.auth.login.LoginException;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(MockitoJUnitRunner.class)
 public class LoginServiceImplTest {
 
     @Rule
@@ -46,7 +49,7 @@ public class LoginServiceImplTest {
     @Test
     public void testFailedLogin() throws LoginException {
         thrown.expect(LoginException.class);
-        thrown.expectMessage("Login failed");
+        thrown.expectMessage("Invalid login credentials");
 
         Account account = new Account("lotus", "lotuspass");
         Account account1 = new Account("lotus", "lotuswrongpass");

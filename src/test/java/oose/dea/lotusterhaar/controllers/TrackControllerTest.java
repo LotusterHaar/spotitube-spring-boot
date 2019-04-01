@@ -1,7 +1,7 @@
-package oose.dea.lotusterhaar.Controller;
+package oose.dea.lotusterhaar.controllers;
 
-import oose.dea.lotusterhaar.controllers.TrackController;
 import oose.dea.lotusterhaar.domain.TracksOverview;
+import oose.dea.lotusterhaar.persistence.TokenExpiredException;
 import oose.dea.lotusterhaar.services.rest.TrackServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import javax.security.auth.login.LoginException;
 import javax.ws.rs.core.Response;
 
 import static org.junit.Assert.assertEquals;
@@ -25,7 +24,7 @@ public class TrackControllerTest {
     private TrackController sut;
 
     @Test
-    public void testStatusOKGetAllTracksFromPlaylist() throws Exception {
+    public void testStatusOKGetAllTracksFromPlaylist() throws TokenExpiredException {
         TracksOverview tracksOverview = new TracksOverview();
 
         Mockito.when(trackService.getTracks(Mockito.anyInt(), Mockito.any())).thenReturn(tracksOverview);
@@ -36,8 +35,8 @@ public class TrackControllerTest {
     }
 
     @Test
-    public void testStatusUnauthorizedGetAllTracksFromPlaylist() throws Exception {
-        Mockito.when(trackService.getTracks(Mockito.anyInt(), Mockito.any())).thenThrow(new LoginException("Usertoken incorrect"));
+    public void testStatusUnauthorizedGetAllTracksFromPlaylist() throws TokenExpiredException {
+        Mockito.when(trackService.getTracks(Mockito.anyInt(), Mockito.any())).thenThrow(new TokenExpiredException("Usertoken incorrect"));
         Response response = sut.getAllTracksFromPlaylist("1234-1234-1234", 1);
 
         assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());

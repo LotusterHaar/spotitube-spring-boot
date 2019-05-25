@@ -6,10 +6,9 @@ import oose.dea.lotusterhaar.dao.TokenDAO;
 import oose.dea.lotusterhaar.dao.TokenExpiredException;
 import oose.dea.lotusterhaar.dao.TrackDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import javax.inject.Named;
-
-@Named("trackService")
+@Component("trackService")
 public class TrackServiceImpl implements TrackService {
     private static final String tokenExpired = "Token has expired!";
 

@@ -1,16 +1,27 @@
 package oose.dea.lotusterhaar.model;
 
 
+import javax.persistence.*;
 import java.util.ArrayList;
 
+@Entity
 public class Library {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    @Column(nullable = false)
+    private String username;
+
     private ArrayList<Playlist> playlists = new ArrayList<Playlist>();
+
     private int length;
 
-    public Library() {
-    }
+    public Library() {super();}
 
     public Library(ArrayList<Playlist> playlists) {
+        super();
         this.playlists = playlists;
     }
 
@@ -18,24 +29,8 @@ public class Library {
         return playlists;
     }
 
-    public void setPlaylists(ArrayList<Playlist> playlists) {
-        this.playlists = playlists;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
     public void setLength(int length) {
         this.length = length;
-    }
-
-    private int getTotalLengthPlaylists() {
-        int totalLength = 0;
-        for (Playlist playlist : playlists) {
-            totalLength += playlist.getLength();
-        }
-        return totalLength;
     }
 
 }

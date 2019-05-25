@@ -1,5 +1,8 @@
 package oose.dea.lotusterhaar.model;
 
+import javax.persistence.Entity;
+
+@Entity
 public class SongTrack extends Track {
     private String album;
 

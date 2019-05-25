@@ -1,17 +1,33 @@
 package oose.dea.lotusterhaar.model;
 
+import javax.persistence.*;
+
+@Entity
 public class Track {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @Column(nullable = false)
     private String title;
+
+    @Column
     private String performer;
+
+    @Column
     private int duration;
+
+    @Column
     private int playcount;
+
+    @Column
     private boolean offlineAvailable;
 
-    public Track() {
-    }
+    public Track() {super();}
 
     public Track(int id, String title, String performer, int duration, int playcount, boolean offlineAvailable) {
+        super();
         this.id = id;
         this.title = title;
         this.performer = performer;

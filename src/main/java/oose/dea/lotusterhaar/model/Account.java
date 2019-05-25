@@ -1,17 +1,28 @@
 package oose.dea.lotusterhaar.model;
 
+import javax.persistence.*;
+
+@Entity
 public class Account {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    @Column(nullable = false, unique = true)
     private String user;
+
+    @Column(nullable = false)
     private String password;
-    private String fullName;
 
     public Account() {
+        super();
     }
 
     public Account(String user, String password) {
+        super();
         this.user = user;
         this.password = password;
-        /*      this.fullName = fullName;*/
     }
 
     public String getUser() {
@@ -30,11 +41,4 @@ public class Account {
         this.password = password;
     }
 
-/*    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }*/
 }

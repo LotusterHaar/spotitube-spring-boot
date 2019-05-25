@@ -6,9 +6,11 @@ public class TracksOverview {
     private ArrayList<Track> tracks = new ArrayList<Track>();
 
     public TracksOverview() {
+        super();
     }
 
     public TracksOverview(ArrayList<Track> tracks) {
+        super();
         this.tracks = tracks;
     }
 

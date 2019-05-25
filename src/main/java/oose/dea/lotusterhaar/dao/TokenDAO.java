@@ -1,8 +1,8 @@
 package oose.dea.lotusterhaar.dao;
 
 import oose.dea.lotusterhaar.model.UserToken;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public class TokenDAO {
 
-    @Inject
+    @Autowired
     ConnectionFactory connectionFactory;
 
     public TokenDAO() {

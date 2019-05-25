@@ -4,8 +4,9 @@ import oose.dea.lotusterhaar.model.SongTrack;
 import oose.dea.lotusterhaar.model.Track;
 import oose.dea.lotusterhaar.model.TracksOverview;
 import oose.dea.lotusterhaar.model.VideoTrack;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 
 public class TrackDAO {
 
-    @Inject
+    @Autowired
     ConnectionFactory connectionFactory;
 
     public TracksOverview getTracks(int id) {

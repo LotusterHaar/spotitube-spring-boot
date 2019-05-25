@@ -4,6 +4,7 @@ import oose.dea.lotusterhaar.model.*;
 import oose.dea.lotusterhaar.dao.PlaylistDAO;
 import oose.dea.lotusterhaar.dao.TokenDAO;
 import oose.dea.lotusterhaar.dao.TokenExpiredException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -12,10 +13,10 @@ import javax.inject.Named;
 public class PlaylistServiceImpl implements PlaylistService {
     private static final String tokenExpired = "Token has expired!";
 
-    @Inject
+    @Autowired
     private PlaylistDAO playlistDAO;
 
-    @Inject
+    @Autowired
     private TokenDAO tokenDAO;
 
     @Override

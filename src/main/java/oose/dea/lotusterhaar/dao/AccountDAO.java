@@ -1,8 +1,8 @@
 package oose.dea.lotusterhaar.dao;
 
 import oose.dea.lotusterhaar.model.Account;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class AccountDAO {
 
-    @Inject
+    @Autowired
     private ConnectionFactory connectionFactory;
 
     public List<Account> getAllAccounts() {

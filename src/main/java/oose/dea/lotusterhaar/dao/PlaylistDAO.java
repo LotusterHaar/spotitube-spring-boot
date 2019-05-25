@@ -1,8 +1,8 @@
 package oose.dea.lotusterhaar.dao;
 
 import oose.dea.lotusterhaar.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,10 +11,10 @@ import java.util.ArrayList;
 
 public class PlaylistDAO {
 
-    @Inject
+    @Autowired
     ConnectionFactory connectionFactory;
 
-    @Inject
+    @Autowired
     TokenDAO tokenDAO;
 
     public Library getAllPlaylists(UserToken token) {

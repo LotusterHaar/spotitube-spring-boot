@@ -4,18 +4,19 @@ import oose.dea.lotusterhaar.model.Account;
 import oose.dea.lotusterhaar.model.UserToken;
 import oose.dea.lotusterhaar.dao.AccountDAO;
 import oose.dea.lotusterhaar.dao.TokenDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
+
 import javax.inject.Named;
 import javax.security.auth.login.LoginException;
 
 @Named("loginService")
 public class LoginServiceImpl implements LoginService {
 
-    @Inject
+    @Autowired
     private AccountDAO accountDAO;
 
-    @Inject
+    @Autowired
     private TokenDAO tokenDAO;
 
     @Override

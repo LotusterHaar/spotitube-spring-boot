@@ -6,17 +6,22 @@ import oose.dea.lotusterhaar.dao.AccountDAO;
 import oose.dea.lotusterhaar.dao.TokenDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.LoginException;
 
-@Component("loginService")
+@Service
 public class LoginServiceImpl implements LoginService {
 
-    @Autowired
+
     private AccountDAO accountDAO;
 
-    @Autowired
     private TokenDAO tokenDAO;
+
+    public LoginServiceImpl(AccountDAO accountDAO, TokenDAO tokenDAO){
+        this.accountDAO = accountDAO;
+        this.tokenDAO = tokenDAO;
+    }
 
     @Override
     public UserToken login(Account user) throws LoginException {

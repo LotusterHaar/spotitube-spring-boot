@@ -4,18 +4,21 @@ import oose.dea.lotusterhaar.model.*;
 import oose.dea.lotusterhaar.dao.PlaylistDAO;
 import oose.dea.lotusterhaar.dao.TokenDAO;
 import oose.dea.lotusterhaar.dao.TokenExpiredException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component("playlistService")
+@Service
 public class PlaylistServiceImpl implements PlaylistService {
     private static final String tokenExpired = "Token has expired!";
 
-    @Autowired
     private PlaylistDAO playlistDAO;
 
-    @Autowired
     private TokenDAO tokenDAO;
+
+    public PlaylistServiceImpl(PlaylistDAO playlistDAO, TokenDAO tokenDAO) {
+        this.playlistDAO = playlistDAO;
+        this.tokenDAO = tokenDAO;
+    }
+
 
     @Override
     public Library getAllPlaylists(String token) throws TokenExpiredException {

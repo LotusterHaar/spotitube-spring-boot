@@ -1,101 +1,87 @@
 package oose.dea.lotusterhaar.controller;
 
+import oose.dea.lotusterhaar.dao.TokenExpiredException;
+import oose.dea.lotusterhaar.model.Library;
 import oose.dea.lotusterhaar.model.Playlist;
 import oose.dea.lotusterhaar.model.Track;
+import oose.dea.lotusterhaar.model.TracksOverview;
 import oose.dea.lotusterhaar.service.rest.PlaylistService;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 
-@Singleton
-@Path("/playlists")
+@RestController
 public class PlaylistController {
 
-    @Inject
-    @Named("playlistService")
     private PlaylistService playlistService;
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getPlaylists(@QueryParam("token") String token) {
+    public PlaylistController(PlaylistService playlistService) {
+        this.playlistService = playlistService;
+    }
+
+    @GetMapping(path = "/playlists", produces= MediaType.APPLICATION_JSON_VALUE)
+    public Library getPlaylists(@RequestParam("token") String token) {
         try {
-            return Response.ok().entity(playlistService.getAllPlaylists(token)).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
+            return playlistService.getAllPlaylists(token);
+        } catch (TokenExpiredException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied", e);
         }
     }
 
-    @Path("{id}/tracks")
-    @GET
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllTracksFromPlaylist(@PathParam("id") final int id, @QueryParam("token") String token) {
+    @GetMapping(path = "/playlists/{id}/tracks", produces = MediaType.APPLICATION_JSON_VALUE)
+    public TracksOverview getAllTracksFromPlaylist(@PathVariable("id") final int id, @RequestParam("token") String token) {
         try {
-            return Response.ok().entity(playlistService.getAllTracksFromPlaylist(id, token)).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
+            return playlistService.getAllTracksFromPlaylist(id, token);
+        } catch (TokenExpiredException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied", e);
         }
     }
 
-    @Path("/{id}")
-    @DELETE
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response deletePlaylistById(@PathParam("id") final int id, @QueryParam("token") String token) {
+    @DeleteMapping(path="/playlists/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Library deletePlaylistById(@PathVariable("id") final int id, @RequestParam("token") String token) {
         try {
-            return Response.ok().entity(playlistService.deletePlaylistById(id, token)).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
+            return playlistService.deletePlaylistById(id, token);
+        } catch (TokenExpiredException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied", e);
         }
     }
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response addPlaylist(@QueryParam("token") String token, Playlist playlist) {
+    @PostMapping(path="/playlists", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Library addPlaylist(@RequestParam("token") String token, Playlist playlist) {
         try {
-            return Response.ok().entity(playlistService.addPlaylist(token, playlist)).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
+            return playlistService.addPlaylist(token, playlist);
+        } catch (TokenExpiredException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied", e);
         }
     }
 
-    @Path("/{id}")
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response editNameOfPlaylist(@PathParam("id") final int id, @QueryParam("token") String token, Playlist playlist) {
+    @PutMapping(path="/playlists/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Library editNameOfPlaylist(@PathVariable("id") final int id, @RequestParam("token") String token, Playlist playlist) {
         try {
-            return Response.ok().entity(playlistService.editNameOfPlaylist(id, token, playlist.getName())).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
+            return playlistService.editNameOfPlaylist(id, token, playlist.getName());
+        } catch (TokenExpiredException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied", e);
         }
     }
 
-    @Path("/{playlistId}/tracks/{trackId}")
-    @DELETE
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteTrackFromPlaylist(@PathParam("playlistId") final int playlistId, @PathParam("trackId") final int trackId, @QueryParam("token") String token) {
+    @DeleteMapping(path="playlists/{playlistId}/tracks/{trackId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public TracksOverview deleteTrackFromPlaylist(@PathVariable("playlistId") final int playlistId, @PathVariable("trackId") final int trackId, @RequestParam("token") String token) {
         try {
-            return Response.ok().entity(playlistService.deleteTrackFromPlaylist(playlistId, trackId, token)).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
+            return playlistService.deleteTrackFromPlaylist(playlistId, trackId, token);
+        } catch (TokenExpiredException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied", e);
         }
     }
 
-    @Path("/{id}/tracks")
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response addTrackToPlaylist(@PathParam("id") final int id, @QueryParam("token") String token, Track track) {
+
+    @PostMapping(path="playlists/{id}/tracks", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public TracksOverview addTrackToPlaylist(@PathVariable("id") final int id, @RequestParam("token") String token, Track track) {
         try {
-            return Response.ok().entity(playlistService.addTrackToPlaylist(id, token, track)).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
+            return playlistService.addTrackToPlaylist(id, token, track);
+        } catch (TokenExpiredException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied", e);
         }
     }
 

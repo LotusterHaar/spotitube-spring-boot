@@ -1,36 +1,33 @@
 package oose.dea.lotusterhaar.controller;
 
 import oose.dea.lotusterhaar.model.Account;
+import oose.dea.lotusterhaar.model.UserToken;
 import oose.dea.lotusterhaar.service.rest.LoginService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
 import javax.security.auth.login.LoginException;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 
-@Singleton
-@Path("/login")
+
+@RestController
 public class LoginController {
 
-    @Inject
-    @Named("loginService")
     private LoginService loginService;
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response login(Account user) {
+    public LoginController(LoginService loginService) {
+        this.loginService = loginService;
+    }
+
+    @PostMapping(path = "/login", produces= MediaType.APPLICATION_JSON_VALUE, consumes= MediaType.APPLICATION_JSON_VALUE)
+    public UserToken login(Account user) {
         try {
-            return Response.ok().entity(loginService.login(user)).build();
+            return loginService.login(user);
         } catch (LoginException e) {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Login failed", e);
         }
     }
 }

@@ -25,11 +25,11 @@ DROP TABLE IF EXISTS `spotitube`.`account` ;
 
 CREATE TABLE IF NOT EXISTS `spotitube`.`account` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `user` VARCHAR(45) NOT NULL,
+  `accountUser` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
   `full_name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `user_UNIQUE` (`user` ASC) VISIBLE,
+  UNIQUE INDEX `user_UNIQUE` (`accountUser` ASC) VISIBLE,
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 6
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `spotitube`.`library` (
   INDEX `account_idx` (`username` ASC) VISIBLE,
   CONSTRAINT `account`
     FOREIGN KEY (`username`)
-    REFERENCES `spotitube`.`account` (`user`))
+    REFERENCES `spotitube`.`account` (`accountUser`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
@@ -131,9 +131,9 @@ CREATE TABLE IF NOT EXISTS `spotitube`.`token` (
   `expiry_date` DATETIME NOT NULL,
   PRIMARY KEY (`token`, `account_user`),
   INDEX `user_idx` (`account_user` ASC) VISIBLE,
-  CONSTRAINT `user`
+  CONSTRAINT `accountUser`
     FOREIGN KEY (`account_user`)
-    REFERENCES `spotitube`.`account` (`user`))
+    REFERENCES `spotitube`.`account` (`accountUser`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;

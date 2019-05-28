@@ -1,32 +1,32 @@
 package oose.dea.lotusterhaar.controller;
 
+import oose.dea.lotusterhaar.dao.TokenExpiredException;
+import oose.dea.lotusterhaar.model.TracksOverview;
 import oose.dea.lotusterhaar.service.rest.TrackService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-@Singleton
-@Path("/tracks")
+@RestController
 public class TrackController {
 
-    @Inject
-    @Named("trackService")
     private TrackService trackService;
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllTracksFromPlaylist(@QueryParam("token") String token, @QueryParam("forPlaylist") final int playlistId) {
+    public TrackController(TrackService trackService) {
+        this.trackService = trackService;
+    }
+
+    @GetMapping(path="/tracks", produces = MediaType.APPLICATION_JSON_VALUE)
+    public TracksOverview getAllTracksFromPlaylist(@QueryParam("token") String token, @QueryParam("forPlaylist") final int playlistId) {
         try {
-            return Response.ok().entity(trackService.getTracks(playlistId, token)).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
+            return trackService.getTracks(playlistId, token);
+        } catch (TokenExpiredException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied", e);
         }
     }
 }

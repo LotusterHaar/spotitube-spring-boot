@@ -14,7 +14,7 @@
     <bean id="connectionFactory" class="oose.dea.lotusterhaar.dao.ConnectionFactory">
     </bean>
 
-    <bean id="account" class="oose.dea.lotusterhaar.dao.AccountDAO">
+    <bean id="account" class="oose.dea.lotusterhaar.dao.AccountRepository">
     </bean>
 
     <bean id = "playlist" class = "oose.dea.lotusterhaar.dao.PlaylistDAO">
@@ -23,7 +23,7 @@
     <bean id = "track" class = "oose.dea.lotusterhaar.dao.TrackDAO">
     </bean>
 
-    <bean id="token" class="oose.dea.lotusterhaar.dao.TokenDAO">
+    <bean id="token" class="oose.dea.lotusterhaar.dao.UserTokenRepository">
     </bean>
 
 </beans>

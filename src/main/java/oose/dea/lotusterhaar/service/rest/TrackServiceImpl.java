@@ -2,7 +2,7 @@ package oose.dea.lotusterhaar.service.rest;
 
 import oose.dea.lotusterhaar.model.TracksOverview;
 import oose.dea.lotusterhaar.model.UserToken;
-import oose.dea.lotusterhaar.dao.TokenDAO;
+import oose.dea.lotusterhaar.dao.UserTokenRepository;
 import oose.dea.lotusterhaar.dao.TokenExpiredException;
 import oose.dea.lotusterhaar.dao.TrackDAO;
 import org.springframework.stereotype.Service;
@@ -13,17 +13,20 @@ public class TrackServiceImpl implements TrackService {
 
     private TrackDAO trackDAO;
 
-    private TokenDAO tokenDAO;
+    private UserTokenRepository userTokenRepository;
 
-    public TrackServiceImpl(TrackDAO trackDAO, TokenDAO tokenDAO) {
+    private UserTokenService userTokenService;
+
+    public TrackServiceImpl(TrackDAO trackDAO, UserTokenRepository userTokenRepository, UserTokenService userTokenService) {
         this.trackDAO = trackDAO;
-        this.tokenDAO = tokenDAO;
+        this.userTokenRepository = userTokenRepository;
+        this.userTokenService = userTokenService;
     }
 
     @Override
     public TracksOverview getTracks(int id, String token) throws TokenExpiredException {
-        UserToken userToken = tokenDAO.getUserToken(token);
-        if (!tokenDAO.tokenExpired(userToken)) {
+        UserToken userToken = userTokenRepository.findByToken(token);
+        if (!userTokenService.tokenExpired(userToken)) {
             return trackDAO.getTracks(id);
         } else {
             throw new TokenExpiredException(tokenExpired);

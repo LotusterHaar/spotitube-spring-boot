@@ -26,11 +26,11 @@ DROP TABLE IF EXISTS `account`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `account` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user` varchar(45) COLLATE utf8_bin NOT NULL,
+  `accountUser` varchar(45) COLLATE utf8_bin NOT NULL,
   `password` varchar(45) COLLATE utf8_bin NOT NULL,
   `full_name` varchar(45) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `user_UNIQUE` (`user`),
+  UNIQUE KEY `user_UNIQUE` (`accountUser`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -57,7 +57,7 @@ CREATE TABLE `library` (
   `username` varchar(45) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`,`username`),
   KEY `account_idx` (`username`),
-  CONSTRAINT `account` FOREIGN KEY (`username`) REFERENCES `account` (`user`)
+  CONSTRAINT `account` FOREIGN KEY (`username`) REFERENCES `account` (`accountUser`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -199,7 +199,7 @@ CREATE TABLE `token` (
   `expiry_date` datetime NOT NULL,
   PRIMARY KEY (`token`,`account_user`),
   KEY `user_idx` (`account_user`),
-  CONSTRAINT `user` FOREIGN KEY (`account_user`) REFERENCES `account` (`user`)
+  CONSTRAINT `accountUser` FOREIGN KEY (`account_user`) REFERENCES `account` (`accountUser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

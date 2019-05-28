@@ -7,7 +7,7 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private int id;
 
     @Column(nullable = false, unique = true)
     private String user;

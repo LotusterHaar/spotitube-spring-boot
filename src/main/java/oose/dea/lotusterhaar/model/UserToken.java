@@ -1,40 +1,46 @@
 package oose.dea.lotusterhaar.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class UserToken {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
     @Column(nullable=false, unique=true)
     private String token;
 
     @Column(nullable=false)
-    private String user;
+    private String accountUser;
 
-    public UserToken() {
+    @Column(nullable=false)
+    private LocalDateTime expiryDate;
+
+
+    public UserToken(String accountUser){
         super();
+        this.accountUser = accountUser;
     }
 
-    public UserToken(String token, String user) {
+    public UserToken(String token, String accountUser, LocalDateTime expiryDate) {
         super();
         this.token = token;
-        this.user = user;
+        this.accountUser = accountUser;
+        this.expiryDate = expiryDate;
     }
 
     public String getToken() {
         return token;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public String getAccountUser() {
+        return accountUser;
     }
 
-    public String getUser() {
-        return user;
-    }
 
-    public void setUser(String user) {
-        this.user = user;
+    public LocalDateTime getExpiryDate() {
+        return expiryDate;
     }
 }

@@ -15,7 +15,7 @@ public class PlaylistDAO {
     ConnectionFactory connectionFactory;
 
     @Autowired
-    TokenDAO tokenDAO;
+    UserTokenRepository userTokenRepository;
 
     public Library getAllPlaylists(UserToken token) {
         Library library = new Library();
@@ -29,7 +29,7 @@ public class PlaylistDAO {
                 String name = resultSet.getString("name");
                 String user = resultSet.getString("username");
                 boolean owner = false;
-                if (user.equals(token.getUser())) {
+                if (user.equals(token.getAccountUser())) {
                     owner = true;
                 }
                 library.getPlaylists().add(new Playlist(playlist_id, name, owner, new ArrayList<Track>()));
@@ -166,7 +166,7 @@ public class PlaylistDAO {
                 PreparedStatement getLibraryIdsStatement = connection.prepareStatement("SELECT library.id FROM spotitube.library WHERE library.username = ?");
                 PreparedStatement createPlaylistStatement = connection.prepareStatement("INSERT INTO playlist (name, owner, library_id) VALUES (?,?,?)");
         ) {
-            String username = tokenDAO.findUsernameByToken(token);
+            String username = userTokenRepository.findByToken(token).getAccountUser();
             getLibraryIdsStatement.setString(1, username);
             ResultSet resultSet = getLibraryIdsStatement.executeQuery();
             while (resultSet.next()) {

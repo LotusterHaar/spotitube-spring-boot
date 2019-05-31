@@ -15,6 +15,7 @@ public class Playlist {
 
     @Column(nullable = false)
     private boolean owner;
+
     private ArrayList<Track> tracks;
     private int length;
 

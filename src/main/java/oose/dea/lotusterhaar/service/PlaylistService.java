@@ -1,4 +1,4 @@
-package oose.dea.lotusterhaar.service.rest;
+package oose.dea.lotusterhaar.service;
 
 import oose.dea.lotusterhaar.model.Library;
 import oose.dea.lotusterhaar.model.Playlist;

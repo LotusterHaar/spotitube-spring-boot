@@ -1,9 +1,8 @@
-package oose.dea.lotusterhaar.service.rest;
+package oose.dea.lotusterhaar.service;
 
 import oose.dea.lotusterhaar.model.Account;
 import oose.dea.lotusterhaar.model.UserToken;
 import oose.dea.lotusterhaar.dao.AccountRepository;
-import oose.dea.lotusterhaar.dao.UserTokenRepository;
 import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.LoginException;
@@ -14,13 +13,11 @@ public class LoginServiceImpl implements LoginService {
 
     private AccountRepository accountRepository;
 
-    private UserTokenRepository userTokenRepository;
 
     private UserTokenService userTokenService;
 
-    public LoginServiceImpl(AccountRepository accountRepository, UserTokenRepository userTokenRepository, UserTokenService userTokenService){
+    public LoginServiceImpl(AccountRepository accountRepository, UserTokenService userTokenService){
         this.accountRepository = accountRepository;
-        this.userTokenRepository = userTokenRepository;
         this.userTokenService = userTokenService;
     }
 

@@ -5,7 +5,7 @@ import oose.dea.lotusterhaar.model.Library;
 import oose.dea.lotusterhaar.model.Playlist;
 import oose.dea.lotusterhaar.model.Track;
 import oose.dea.lotusterhaar.model.TracksOverview;
-import oose.dea.lotusterhaar.service.rest.PlaylistService;
+import oose.dea.lotusterhaar.service.PlaylistService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

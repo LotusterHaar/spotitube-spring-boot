@@ -1,16 +1,14 @@
-package oose.dea.lotusterhaar.service.rest;
+package oose.dea.lotusterhaar.service;
 
 import oose.dea.lotusterhaar.dao.UserTokenRepository;
 import oose.dea.lotusterhaar.model.UserToken;
+import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
+@Service
 public class UserTokenServiceImpl implements UserTokenService {
 
     private UserTokenRepository userTokenRepository;

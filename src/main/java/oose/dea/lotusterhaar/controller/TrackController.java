@@ -2,7 +2,7 @@ package oose.dea.lotusterhaar.controller;
 
 import oose.dea.lotusterhaar.dao.TokenExpiredException;
 import oose.dea.lotusterhaar.model.TracksOverview;
-import oose.dea.lotusterhaar.service.rest.TrackService;
+import oose.dea.lotusterhaar.service.TrackService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;

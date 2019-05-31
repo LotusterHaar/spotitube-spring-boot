@@ -1,4 +1,4 @@
-package oose.dea.lotusterhaar.service.rest;
+package oose.dea.lotusterhaar.service;
 
 import oose.dea.lotusterhaar.model.TracksOverview;
 import oose.dea.lotusterhaar.dao.TokenExpiredException;

@@ -2,7 +2,7 @@ package oose.dea.lotusterhaar.controller;
 
 import oose.dea.lotusterhaar.model.Account;
 import oose.dea.lotusterhaar.model.UserToken;
-import oose.dea.lotusterhaar.service.rest.LoginService;
+import oose.dea.lotusterhaar.service.LoginService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
